@@ -18,6 +18,7 @@ const Navbar = () => {
         dispatch(logout());
         history("/");
     }
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -27,12 +28,29 @@ const Navbar = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    {!isAuth ?
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/">Новини</Link>
+                                <Link className="nav-link" aria-current="page" to="/news">Новини</Link>
                             </li>
-                        </ul>         
-                    {!isAuth ?
+                            <li className="nav-item">
+                                <Link className="nav-link" aria-current="page" to="/">Розклад занять</Link>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" aria-current="page" href="https://edu.regi.rovno.ua/">Moodle</a>
+                            </li>
+                        </ul> 
+                        :
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <Link className="nav-link" aria-current="page" to="/news">Новини</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" aria-current="page" to="/">Розклад занять</Link>
+                            </li>
+                        </ul> 
+                    }        
+                    {!isAuth ? 
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <Link className="nav-link" to="/login">Вхід</Link>
@@ -44,10 +62,10 @@ const Navbar = () => {
                             {user}
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/register" onClick={onClickLogout} >Зареєструвати</Link>
+                            <Link className="nav-link" to="/register" onClick={onClickLogout} >Користувачі</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/logout" onClick={onClickLogout} >Вихід</Link>
+                            <Link className="nav-link" to="/logout" onClick={onClickLogout} >{user}(Вихід)</Link>
                         </li>
                         </ul>
                     }   

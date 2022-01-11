@@ -28,7 +28,7 @@ export const LoginUser = (data) => async (dispatch) =>{
         return Promise.resolve(response);
     }
     catch(err){
-        console.log(err);
+        console.log(err.response.data);
         return Promise.reject(err.response.data);
     }
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import validatonFields from './Validation';
 import {Formik, Form} from 'formik';
 import MyTextInput from "../../common/MyTextInput";
@@ -16,6 +16,9 @@ const LoginPage=()=>{
     const [invalid, setInvalid] = useState([]);
     const dispatch = useDispatch();
     const history = useNavigate();
+    const formikRef = useRef();
+    const titleRef = useRef();
+
 
     const onSubmitHandler=(values) =>
     {
@@ -26,6 +29,13 @@ const LoginPage=()=>{
                 history("/");
             })
             .catch(ex => {
+                console.log(ex.errors.invalid)
+                const { errors } = ex;
+                Object.entries(errors).forEach(([key, values]) => {
+                    let message = '';
+                    values.forEach(text => message += text + " ");
+                    formikRef.current.setFieldError(key, message);
+                });
                 setInvalid(ex.errors.invalid);
             })
         //console.log(values);
@@ -35,7 +45,7 @@ const LoginPage=()=>{
 
     return (
         <div className="row">
-            <h1 className="offset-md-3 col-md-6">Вхід</h1>
+            <h1 ref={titleRef} className="offset-md-3 col-md-6">Вхід</h1>
             {
                 invalid && invalid.length > 0 &&
                 <div className="alert alert-danger">
@@ -53,6 +63,7 @@ const LoginPage=()=>{
             }
             <div className="offset-md-3 col-md-6">
             <Formik 
+                innerRef={formikRef}
                 initialValues = {initState} 
                 onSubmit={onSubmitHandler}
                 validationSchema= {validatonFields()}>

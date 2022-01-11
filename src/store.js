@@ -1,6 +1,8 @@
 import {applyMiddleware, combineReducers, createStore, compose} from "redux";
 import thunk from "redux-thunk";
-import authReducer from "./components/auth/Login/Reducer";
+import authReducer from "./components/auth/Reducer";
+import newsReducer from "./components/news/reducer";
+
 
 const middleware = [
     thunk
@@ -8,7 +10,7 @@ const middleware = [
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    
+    news: newsReducer
 });
 
  // In development, use the browser's Redux dev tools extension if installed

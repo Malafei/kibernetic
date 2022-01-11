@@ -5,9 +5,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
 import store from './store'
+import {setAuthUserByToken} from './components/auth/Login/Action'
+import { Provider } from "react-redux";
 
+const token = localStorage.token;
+
+if(token)
+{
+  store.dispatch(setAuthUserByToken(token));
+}
 
 ReactDOM.render(
   <Provider store = {store} >

@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER, LOGOUT } from "../../../constants/ActionConst";
+import { LOGIN, REGISTER, LOGOUT } from "../../constants/ActionConst";
 
 
 const initialState = {
