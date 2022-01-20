@@ -1,0 +1,11 @@
+.but{
+    height: 44px;
+    min-width: 170px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.divTo_but{
+    text-align: right;
+    vertical-align: middle;
+}

@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER, LOGOUT } from "../../constants/ActionConst";
+import { LOGIN, LOGOUT } from "../../constants/ActionConst";
 
 
 const initialState = {
@@ -13,11 +13,6 @@ const authReducer = (state = initialState, action) => {
             return{
                 isAuth: true,
                 user: payload
-            }
-        }
-        case REGISTER: {
-            return{
-                isAuth: false
             }
         }
         case LOGOUT: {

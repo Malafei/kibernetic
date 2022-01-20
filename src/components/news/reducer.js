@@ -1,7 +1,8 @@
-import { NEWS_ALL } from "../../constants/ActionConst";
+import { NEWS_ALL, NEWS_ADD, NEWS_DELETED, NEWS_EDIT, NEWS_SAVE_EDIT } from "../../constants/ActionConst";
 
 const initialState = {
-    list: []
+    list: [],
+    editedNews: {},
 }
 
 const newsReducer = (state=initialState, action) => {
@@ -13,15 +14,28 @@ const newsReducer = (state=initialState, action) => {
                 list: payload
             };
         }
-        /* case USERS_DELETED:{
+        case NEWS_ADD: {
+            return {
+                ...state,
+            };
+        }
+        case NEWS_DELETED:{
             return{
                 ...state,
                 list: state.list.filter(item => item.id !== payload)
             }
         }
-        case USERS_EDIT:{
-            
-        } */
+        case NEWS_EDIT:{
+            return{
+                ...state,
+                editedNews: payload
+            }
+        }
+        case NEWS_SAVE_EDIT:{
+            return{
+                ...state,
+            }
+        }
 
         default: {
             return state;

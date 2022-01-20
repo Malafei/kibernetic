@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {useNavigate} from 'react-router';
 import { logout } from './auth/Login/Action';
+import { MOODLE } from '../constants/ActionConst';
 
 
 
@@ -37,7 +38,7 @@ const Navbar = () => {
                                 <Link className="nav-link" aria-current="page" to="/">Розклад занять</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" aria-current="page" href="https://edu.regi.rovno.ua/">Moodle</a>
+                                <a className="nav-link" aria-current="page" href={MOODLE}>Moodle</a>
                             </li>
                         </ul> 
                         :
