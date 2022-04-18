@@ -1,0 +1,97 @@
+.Shadow-wraper{
+    margin: 30px 14px  14px 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 0 0px hsl(0, 4%, 63%), 0 0px 20px 6px rgb(232, 228, 228);
+}
+
+.Grid-wraper{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 4px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.Cell-wraper{
+    min-width: 140px;
+    min-height: 80px;
+    color: #1e1e1e;
+}
+.Cell-wraper-month{
+    color: #9e9c9c;
+}
+
+
+
+.Cell-header{
+    min-width: 140px;
+    padding: 5px;
+    color: #1e1e1e;
+}
+
+.Cell-everyday{
+    background-color: #cbd1d5;
+}
+
+.Cell-wekend{
+    background-color: #86898d;
+}
+
+.CurrentDay {
+    background-color: #aaafb4;
+}
+
+
+.RowInCell{
+    display: flex;
+    font-size: 20px;
+    justify-content: flex-end;
+}
+
+.Day-wraper{
+    height: 33px;
+    width: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}   
+
+
+.Div-wraper{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    color: #616169;
+    padding: 16px;
+}
+
+.Text-wraper{
+    font-size: 32px;
+}
+
+.Title-wrapper{
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.Buttons-wraper{
+    display: flex;
+    align-items: center;
+}
+
+.Button-wraper{
+    border: unset;
+    background-color: #565759;
+    height: 30px;
+    margin-right: 2px;
+    border-radius: 4px;
+    align-content: center;
+    color: #E6E6E6;
+}
+
+.TodayButton{
+    padding-right: 14px;
+    padding-left: 14px;
+    font-weight: bold;
+}

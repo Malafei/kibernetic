@@ -99,7 +99,7 @@ const ShedulePage = () => {
                     </div>
                     <div className='Grid-wraper'>
                         {[...Array(7)].map((_,i) => (
-                            <div className='Cell-header Cell-everyday RowInCell'>
+                            <div key={i} className='Cell-header Cell-everyday RowInCell'>
                                 {moment().day(i+1).format('ddd')}
                             </div>
                         ))}

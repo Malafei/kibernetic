@@ -35,7 +35,7 @@ const Navbar = () => {
                                 <Link className="nav-link" aria-current="page" to="/news">Новини</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/">Розклад занять</Link>
+                                <Link className="nav-link" aria-current="page" to="/shedule">Розклад занять</Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" aria-current="page" href={MOODLE}>Moodle</a>
@@ -47,7 +47,7 @@ const Navbar = () => {
                                 <Link className="nav-link" aria-current="page" to="/news">Новини</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/">Розклад занять</Link>
+                                <Link className="nav-link" aria-current="page" to="/shedule">Розклад занять</Link>
                             </li>
                         </ul> 
                     }        

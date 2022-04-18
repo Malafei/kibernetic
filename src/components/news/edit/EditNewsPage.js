@@ -12,7 +12,7 @@ import { NewsSaveEdit } from './Acrions';
 import { HOST } from '../../../constants/ActionConst';
 import http from '../../../http_common';
 
-const EditPage = () => {
+const EditNewsPage = () => {
 
     const { isAuth } = useSelector(redux => redux.auth);
     const history = useNavigate();
@@ -145,4 +145,4 @@ const EditPage = () => {
         </>
     )
 }
-export default EditPage;
+export default EditNewsPage;

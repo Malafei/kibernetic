@@ -19,10 +19,10 @@ const MyPhotoInput = ({ Myfield, formikRef, data, ...props}) => {
 
         const files = event.currentTarget.files;
 
-        if (!(files && files[0])) {
-            setError("Поле не може бути пустим")// якщо файл не обрано наказуємо обрати фото
-            return;//виходимо з функції selectImage
-        }
+        //if (!(files && files[0])) {
+        //    setError("Поле не може бути пустим")// якщо файл не обрано наказуємо обрати фото
+        //    return;//виходимо з функції selectImage
+        //}
         if (!(((files[0].size / 1024) / 1024) < 10)) { // перевіряємо чи розмір не перевищує 10 мб (переводимо байти в мегабайти)
             setError("Занадто великий файл")// якщо розмір файлу неправильний наказуємо обрати фото меншого розміру
             return; //виходимо з функції selectImage
