@@ -1,5 +1,5 @@
 import '../../news/css/addnews.css'
-import '../css/style.css'
+import './css/style.css' 
 import { Formik, Form } from 'formik';
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";

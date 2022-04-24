@@ -1,0 +1,89 @@
+.Grid-wraper-admin {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    grid-gap: 4px;
+    padding: 1px;
+    background-color: #fff;
+}
+
+
+.Left-menu-admin {
+    background: #212529;
+    min-height: fit-content;
+    color: rgb(255, 255, 255);
+    display: grid;
+    vertical-align: baseline;
+    box-shadow: 0 0 0 0px hsl(0, 1%, 20%), 0 0px 20px 6px rgb(149, 141, 141);
+    border-radius: 4px;
+    height: 100vh;    
+    align-content: baseline;
+    padding: 20px;
+}
+
+.Title-menu-admin {
+    background: #212529;
+    min-height: fit-content;
+    color: beige;
+    display: grid;
+    box-shadow: 0 0 0 0px hsl(0, 1%, 20%), 0 0px 20px 6px rgb(149, 141, 141);
+    border-radius: 4px; 
+    align-content: baseline;
+    padding: 20px;
+}
+
+.Main-font-admin{
+    color: rgb(255, 255, 255);
+    margin-bottom: 40px;
+    display: inline-block;
+    line-height: 0.85;
+}
+
+
+.Button-div-admin {
+    padding: 5px;
+    margin-bottom: 10px;
+    max-height: 40px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    font-size: 18px;
+    transition: width 1s cubic-bezier(0, 0, 1, 1) 500ms;
+}
+
+.Button-div-admin:hover {
+    background-color:rgb(75, 73, 73);
+
+}
+.Button-div-admin:active{
+    background-color:rgb(97, 92, 92);
+}
+
+.NotVisInput{
+    max-height: 30px;
+    border: 0px;
+}
+
+.Body-shedual-admin{
+    margin-left: 60px;
+    padding: 70px;
+    border-radius: 10px; 
+    height: 100vh;   
+    box-shadow: 0 0 0 0px hsl(0, 1%, 45%), 0 0px 20px 6px rgb(218, 214, 214);
+}
+
+
+td, th {
+    border: 1px solid #dddddd;
+}
+
+.time-Column{
+    max-width: 100px;
+}
+.oneColumn{
+    
+    max-width: 50px;
+}
+.fourColumn{
+    
+   
+    max-width: 50px;
+}
