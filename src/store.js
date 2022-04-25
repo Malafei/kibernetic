@@ -2,6 +2,7 @@ import {applyMiddleware, combineReducers, createStore, compose} from "redux";
 import thunk from "redux-thunk";
 import authReducer from "./components/auth/Reducer";
 import newsReducer from "./components/news/reducer";
+import sheduleReducer from "./components/schedule/reducer";
 
 
 const middleware = [
@@ -10,7 +11,8 @@ const middleware = [
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    news: newsReducer
+    news: newsReducer,
+    shedule: sheduleReducer
 });
 
  // In development, use the browser's Redux dev tools extension if installed

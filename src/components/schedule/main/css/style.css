@@ -95,3 +95,11 @@
     padding-left: 14px;
     font-weight: bold;
 }
+
+.Cell-everyday:hover {
+    background-color:#aaafb4;
+
+}
+.Cell-everyday:active{
+    background-color:rgb(215, 215, 215);
+}

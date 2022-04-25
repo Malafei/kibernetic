@@ -2,7 +2,7 @@ import '../../common/css/modal.css';
 import '../css/addnews.css';
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from 'react-router-dom'
+import { createRoutesFromChildren, Link } from 'react-router-dom'
 import { NewsAll, NewsDelete } from "./Action";
 import { NewsEdit } from '../edit/Acrions';
 import { useDispatch } from "react-redux";
@@ -23,6 +23,7 @@ const NewsPage = () => {
             dispatch(NewsAll())
                 .then(res => {
                     setLoading(false);
+
                 })
                 .catch();
         }

@@ -1,43 +1,79 @@
 import './css/styleAdmin.css'
 import { Formik, Form } from 'formik';
 import { useEffect, useRef, useState } from "react";
+import { options } from '../../../constants/ActionConst'
 
 import validatonFields from './Validation';
 import MySelectInput from '../../common/MySelectInput';
+import AddGroup from '../addGroup/AddGroupPage';
+import AddShedule from '../addShedue/AddShedulePage';
 
 const SheduleAdminPage = () => {
 
-    const [inputFields, setInputFields] = useState([
-        { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }
-    ])
+    const [addSheduleVision, setAddSheduleVision] = useState(false);
+    const [editSheduleVision, setEditSheduleVision] = useState(false);
+    const [exportSheduleVision, setExportSheduleVision] = useState(false);
+    const [donwnloadTemplateSheduleVision, setDonwnloadTemplateSheduleVision] = useState(false);
+    const [addNewGropVision, setAddNewGropVision] = useState(false);
+    const [deleteGroupVision, setDeleteGroupVision] = useState(false);
+    const [editGroupVision, setEditGroupVision] = useState(false);
 
-    const handleFormChange = (index, event) => {
-        let data = [...inputFields];
-        data[index][event.target.name] = event.target.value;
-        setInputFields(data);
-    }
-
-    const addFields = () => {
-        let newfield = { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }
-        setInputFields([...inputFields, newfield])
-    }
-
-    const removeFields = (index) => {
-        let data = [...inputFields];
-        data.splice(index, 1)
-        setInputFields(data)
-    }
-
-
-
-
-
-
-    const formikRef = useRef();
 
     const onSubmitHandler = (values) => {
 
     }
+
+    const onAddShedule = () => {
+        setAddSheduleVision(true);
+        setEditSheduleVision(false);
+        setExportSheduleVision(false);
+        setDonwnloadTemplateSheduleVision(false);
+        setAddNewGropVision(false);
+        setDeleteGroupVision(false);
+        setEditGroupVision(false);
+    }
+    const onEditShedule = () => {
+        setAddSheduleVision(false);
+        setEditSheduleVision(true);
+        setExportSheduleVision(false);
+        setDonwnloadTemplateSheduleVision(false);
+        setAddNewGropVision(false);
+        setDeleteGroupVision(false);
+        setEditGroupVision(false);
+    }
+
+    const onExportShedule = () => {
+        setAddSheduleVision(false);
+        setEditSheduleVision(false);
+        setExportSheduleVision(true);
+        setDonwnloadTemplateSheduleVision(false);
+        setAddNewGropVision(false);
+        setDeleteGroupVision(false);
+        setEditGroupVision(false);
+    }
+
+    const onDonwnloadTemplateShedule = () => {
+        setAddSheduleVision(false);
+        setEditSheduleVision(false);
+        setExportSheduleVision(false);
+        setDonwnloadTemplateSheduleVision(true);
+        setAddNewGropVision(false);
+        setDeleteGroupVision(false);
+        setEditGroupVision(false);
+    }
+
+
+    const onAddNewGrop = () => {
+        setAddSheduleVision(false);
+        setEditSheduleVision(false);
+        setExportSheduleVision(false);
+        setDonwnloadTemplateSheduleVision(false);
+        setAddNewGropVision(true);
+        setDeleteGroupVision(false);
+        setEditGroupVision(false);
+    }
+
+
 
     return (
         <>
@@ -47,10 +83,10 @@ const SheduleAdminPage = () => {
                         <h2 className='Main-font-admin'>Панель керування</h2>
                     </div>
                     <div className="container Left-menu-admin">
-                        <div className='Button-div-admin'>
+                        <div className='Button-div-admin' onClick={() => onAddShedule()}>
                             Додати розклад
                         </div>
-                        <div className='Button-div-admin'>
+                        <div className='Button-div-admin' onClick={() => onEditShedule()}>
                             Редагувати розклад
                         </div>
                         <div className='Button-div-admin'>
@@ -59,104 +95,35 @@ const SheduleAdminPage = () => {
                         <div className='Button-div-admin'>
                             Завантажити шаблон
                         </div>
+                        <div className='Button-div-admin' onClick={() => onAddNewGrop()}>
+                            Додати нову групу
+                        </div>
+                        <div className='Button-div-admin'>
+                            Видалити групу
+                        </div>
+                        <div className='Button-div-admin'>
+                            Редагувати групу
+                        </div>
                         <div onClick={() => console.log("насипав")} className='Button-div-admin'>
                             насипати хуїв у кружку
                         </div>
                         <div></div>
                     </div>
-
-
-                </div>
-                <div className="album py-5">
-
-                    <div className='Body-shedual-admin'>
-
-
-
-                        <Formik
-                            innerRef={formikRef}
-                            initialValues={inputFields}
-                            onSubmit={onSubmitHandler}
-                            validationSchema={validatonFields()}>
-                            <Form>
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th className='oneColumn' scope="col">час</th>
-                                            <th scope="col">Назва предмета</th>
-                                            <th scope="col">Викладач</th>
-                                            <th scope="col">ауд.</th>
-                                            <th scope="col">Вид зайняття</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {inputFields.map((input, index) => {
-                                            return (
-                                                <tr key={index}>
-                                                    <td className='oneColumn'>
-                                                        <input
-                                                            className='NotVisInput'
-                                                            name='time'
-                                                            value={input.time}
-                                                            onChange={event => handleFormChange(index, event)}
-                                                        />
-                                                    </td>
-                                                    <td>
-
-                                                        <input
-                                                            className='NotVisInput'
-                                                            name='nameLesson'
-                                                            value={input.nameLesson}
-                                                            onChange={event => handleFormChange(index, event)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <input
-                                                            className='NotVisInput'
-                                                            name='nameTeacher'
-                                                            value={input.nameTeacher}
-                                                            onChange={event => handleFormChange(index, event)}
-                                                        />
-                                                    </td>
-                                                    <td className='fourColumn'>
-                                                        <input
-                                                            className='NotVisInput'
-                                                            name='classRoom'
-                                                            value={input.classRoom}
-                                                            onChange={event => handleFormChange(index, event)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <MySelectInput
-                                                            name="typeLesson"
-                                                            value={input.typeLesson}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <button onClick={() => removeFields(index)}>Remove</button>
-
-                                                    </td>
-
-                                                </tr>
-                                            )
-                                        })}
-
-                                        <button onClick={addFields}>Додати зайняття</button>
-                                    </tbody>
-
-                                </table>
-                                <div className='divTo_but'>
-                                            <button type="submit" className="btn btn-dark col-md-4 but showBtn">Зберегти</button>
-                                        </div>
-                            </Form>
-                        </Formik>
-                    </div>
-
                 </div>
 
 
+                {addSheduleVision ?
+                    <AddShedule></AddShedule>
+                    :
+                    <></>
+                }
+
+
+                {addNewGropVision ?
+                    <AddGroup></AddGroup>
+                    :
+                    <></>
+                }
 
 
 
