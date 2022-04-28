@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import Modal from './MyModal';
 import classNames from 'classnames';
 import moment from 'moment';
 import "moment/locale/uk"
@@ -24,13 +24,26 @@ const Calendar = () => {
     const nextHandler = () =>{ setToday(prev => prev.clone().add(1,'month')) }
 
 
+    const [contextDay, setContextDay] = useState(()=><></>);
+    const [isModal, setModal] = useState(false)
+    const onClose = () => setModal(false)
+    const modalContext = (selectday) =>{
+        setContextDay(<span>{selectday}</span>)
+        setModal(true);
+    }
 
 
 
     return (
         <>
-            <div className='Shadow-wraper'>
-
+            <div className='Shadow-wraper'> 
+                                <Modal
+                                    visible={isModal}
+                                    title={contextDay}
+                                    content={contextDay}
+                                    footer={<button onClick={onClose}>Закрыть</button>}
+                                    onClose={onClose}
+                                />
 
                 <div className='Div-wraper'>
                     <div>
@@ -62,7 +75,7 @@ const Calendar = () => {
                                 { "Cell-wraper Cell-everyday": dayItem.day() !== 6 || dayItem.day() !== 0 })}
                                 key={dayItem.unix()}
                                 
-                                onClick={() => console.log(dayItem.format('DD.MM.YYYY'))}>
+                                onClick={() => modalContext(dayItem.format('DD.MM.YYYY'))}>
 
                                 <div className='RowInCell'>
 

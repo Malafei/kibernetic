@@ -28,13 +28,15 @@ const MySelectInput = ({ handleMenuClick, ...props }) => {
                 
                 <Button>
                     <Space>
-                       {props.label}
-
+                        {meta.error && meta.touched ?
+                            <span className="text-danger">{meta.error}</span>
+                            :
+                            props.label
+                        }
                         <DownOutlined/>
                     </Space>
                 </Button>
             </Dropdown>
-        {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
         </>
     )
 

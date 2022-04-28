@@ -8,6 +8,7 @@ import { NewsEdit } from '../edit/Acrions';
 import { useDispatch } from "react-redux";
 import { HOST } from "../../../constants/ActionConst";
 import EclipseWidget from '../../common/EclipseWidget';
+import Modal from '../../common/MyModal';
 
 
 const NewsPage = () => {
@@ -17,6 +18,12 @@ const NewsPage = () => {
     const { list } = useSelector(state => state.news);
     const { isAuth } = useSelector(redux => redux.auth);
     const [loading, setLoading] = useState(true);
+
+
+    const [contextDay, setContextDay] = useState(() => <></>);
+    const [isModal, setModal] = useState(false)
+    const onClose = () => setModal(false)
+
 
     useEffect(() => {
         try {
@@ -44,8 +51,20 @@ const NewsPage = () => {
         }
     }
 
-    const onDetailClick = (id) => {
-        console.log("server error global");
+    const onDetailClick = (name, description, image) => {
+        setContextDay(
+            <>
+                <div className='modal-header'>
+                    <img className='displayed' src={HOST + "/images/" + image} alt={image} height='225' />
+                    {/* <span className='modal-close' onClick={onClose}>&times; </span> */}
+                </div>
+                <div className='modal-body'>
+                    <h3 className='modal-title'>{name}</h3>
+                    <div className='modal-content'>{description}</div>
+                </div>
+            </>
+        );
+        setModal(true);
     }
 
     const onEditClick = (id) => {
@@ -67,23 +86,29 @@ const NewsPage = () => {
     return (
         <>
             <div key={0} className="album py-5">
+
+                <Modal
+                    visible={isModal}
+                    content={contextDay}
+                    footer={<button onClick={onClose}>Закрыть</button>}
+                    onClose={onClose}
+                />
                 <div className="container">
                     {isAuth ?
-                    <div className="row row-cols-1 row-cols-sm-2 g-2">
-                        <h1>Список новин</h1>
-                        <div className="divTo_but">
-                            <Link className="btn btn-success col-md-2 but" to="/news/add">Додати новину</Link>
+                        <div className="row row-cols-1 row-cols-sm-2 g-2">
+                            <h1>Список новин</h1>
+                            <div className="divTo_but">
+                                <Link className="btn btn-success col-md-2 but" to="/news/add">Додати новину</Link>
+                            </div>
                         </div>
-                    </div>
-                    :
-                    <div className="row row-cols-1 row-cols-sm-2 g-2">
-                        <h1>Список новин</h1>
-                    </div>
+                        :
+                        <div className="row row-cols-1 row-cols-sm-2 g-2">
+                            <h1>Список новин</h1>
+                        </div>
                     }
                     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         {
                             list.map((news, index) => {
-
                                 return (
                                     <>
                                         <div key={index} className="col">
@@ -95,12 +120,12 @@ const NewsPage = () => {
                                                     <div className="d-flex justify-content-between align-items-center">
                                                         {!isAuth ?
                                                             <div className='btn-group'>
-                                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => onDetailClick(news.id)}>Деталі</button>
+                                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => setModal(true)}>Деталі</button>
                                                             </div>
                                                             :
                                                             <div className='btn-group'>
                                                                 <button className="btn btn-sm btn-outline-secondary" onClick={() => onDeleteClick(news.id)}>Видалити</button>
-                                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => onDetailClick(news.id)}>Деталі</button>
+                                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => onDetailClick(news.name, news.description, news.image)}>Деталі</button>
                                                                 <Link className="btn btn-sm btn-outline-secondary" onClick={() => onEditClick(news.id)} to={`/news/edit/${news.id}`}>Редагувати</Link>
                                                             </div>
                                                         }

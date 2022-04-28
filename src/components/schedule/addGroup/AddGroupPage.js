@@ -4,16 +4,18 @@ import MyTextInput from '../../common/MyTextInput';
 import validationFields from './Validation';
 import { GroupAdd } from './Action';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
-const AddGroup = () => {
+
+
+const AddGroup = ({vision}) => {
 
 
     const initState = {
         nameGroup: '',
     };
     const formikRef = useRef();
-
     const titleRef = useRef();
     const dispatch = useDispatch();
 
@@ -26,8 +28,7 @@ const AddGroup = () => {
         dispatch(GroupAdd(formData))
             .then(result => {
                 console.log(result);
-
-                //history("/news");
+                //setAddNewGropVision(false);
             })
             .catch(ex => {
                 console.log(ex.errors.invalid)
@@ -43,52 +44,57 @@ const AddGroup = () => {
 
     return (
         <>
-            <div className="album py-5">
-                <div className='Body-shedual-admin'>
-                    <h1 ref={titleRef} className="offset-md-3 col-md-8" >Додати нову групу</h1>
-                    {
-                        invalid && invalid.length > 0 &&
-                        <div className="alert alert-danger">
-                            <ul>
-                                {
-                                    invalid.map((text, index) => {
-                                        return (
-                                            <li key={index}>{text}</li>
 
-                                        );
-                                    })
-                                }
-                            </ul>
-                        </div>
+            {vision ?
 
-                    }
-                    <Formik
-                        innerRef={formikRef}
-                        initialValues={initState}
-                        onSubmit={onSubmitHandler}
-                        validationSchema={validationFields()}>
-                        <Form>
-                            <div className="container">
-                                <div className="row containerDivCenter">
-                                    <div className="col-sm ">
-                                        <MyTextInput
-                                            label="Назва групи"
-                                            name="nameGroup"
-                                            type="nameGroup"
-                                            id="nameGroup"
-                                            
-                                        />
-                                    </div>
-                                    <div className="col-sm Button-align">
+                <div className="album py-5">
+                    <div className='Body-shedual-admin'>
+                        <h1 ref={titleRef} className="offset-md-3 col-md-8" >Додати нову групу</h1>
+                        {
+                            invalid && invalid.length > 0 &&
+                            <div className="alert alert-danger">
+                                <ul>
+                                    {
+                                        invalid.map((text, index) => {
+                                            return (
+                                                <li key={index}>{text}</li>
+
+                                            );
+                                        })
+                                    }
+                                </ul>
+                            </div>
+
+                        }
+                        <Formik
+                            innerRef={formikRef}
+                            initialValues={initState}
+                            onSubmit={onSubmitHandler}
+                            validationSchema={validationFields()}>
+                            <Form>
+                                <div className="container">
+                                    <div className="row containerDivCenter">
+                                        <div className="col-sm ">
+                                            <MyTextInput
+                                                name="nameGroup"
+                                                type="nameGroup"
+                                                id="nameGroup"
+                                                placeH="Назва групи"
+                                            />
+                                        </div>
+                                        <div className="col-sm Button-align">
                                             <button type="submit" className="btn btn-dark col-md-4 but">Зберегти</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                        </Form>
-                    </Formik>
+
+                            </Form>
+                        </Formik>
+                    </div>
                 </div>
-            </div>
+                :
+                <></>
+            }
         </>
     )
 }

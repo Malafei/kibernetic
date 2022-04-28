@@ -82,7 +82,7 @@ const ShedulePage = () => {
 
                         <div className="container">
                                 <div className="row containerDivCenter">
-                                    <div claclassNamess="col-sm">
+                                    <div className="col-sm">
                                         <MySelectInput
                                             label="Виберіть групу"
                                             name="nameGroup"

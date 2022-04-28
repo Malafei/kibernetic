@@ -26,7 +26,7 @@ const SheduleAdminPage = () => {
         setEditSheduleVision(false);
         setExportSheduleVision(false);
         setDonwnloadTemplateSheduleVision(false);
-        setAddNewGropVision(false);
+        //setAddNewGropVision(false);
         setDeleteGroupVision(false);
         setEditGroupVision(false);
     }
@@ -36,7 +36,7 @@ const SheduleAdminPage = () => {
         setEditSheduleVision(true);
         setExportSheduleVision(false);
         setDonwnloadTemplateSheduleVision(false);
-        setAddNewGropVision(false);
+        //setAddNewGropVision(false);
         setDeleteGroupVision(false);
         setEditGroupVision(false);
     }
@@ -46,7 +46,7 @@ const SheduleAdminPage = () => {
         setEditSheduleVision(false);
         setExportSheduleVision(true);
         setDonwnloadTemplateSheduleVision(false);
-        setAddNewGropVision(false);
+        //setAddNewGropVision(false);
         setDeleteGroupVision(false);
         setEditGroupVision(false);
     }
@@ -56,17 +56,7 @@ const SheduleAdminPage = () => {
         setEditSheduleVision(false);
         setExportSheduleVision(false);
         setDonwnloadTemplateSheduleVision(true);
-        setAddNewGropVision(false);
-        setDeleteGroupVision(false);
-        setEditGroupVision(false);
-    }
-
-    const onAddNewGroup = () => {
-        setAddSheduleVision(false);
-        setEditSheduleVision(false);
-        setExportSheduleVision(false);
-        setDonwnloadTemplateSheduleVision(false);
-        setAddNewGropVision(true);
+        //setAddNewGropVision(false);
         setDeleteGroupVision(false);
         setEditGroupVision(false);
     }
@@ -76,7 +66,7 @@ const SheduleAdminPage = () => {
         setEditSheduleVision(false);
         setExportSheduleVision(false);
         setDonwnloadTemplateSheduleVision(false);
-        setAddNewGropVision(false);
+        //setAddNewGropVision(false);
         setDeleteGroupVision(true);
         setEditGroupVision(false);
     }
@@ -86,7 +76,7 @@ const SheduleAdminPage = () => {
         setEditSheduleVision(false);
         setExportSheduleVision(false);
         setDonwnloadTemplateSheduleVision(false);
-        setAddNewGropVision(false);
+        //setAddNewGropVision(false);
         setDeleteGroupVision(false);
         setEditGroupVision(true);
     }
@@ -109,10 +99,10 @@ const SheduleAdminPage = () => {
                         <div className='Button-div-admin'>
                             Експортувати розклад
                         </div>
-                        <div className='Button-div-admin'>
+                        <div className='Button-div-admin'>  
                             Завантажити шаблон
                         </div>
-                        <div className='Button-div-admin' onClick={() => onAddNewGroup()}>
+                        <div className='Button-div-admin' onClick={() => setAddNewGropVision(true)}>
                             Додати нову групу
                         </div>
                         <div className='Button-div-admin' onClick={() => onDeleteGroup()}>
@@ -136,11 +126,7 @@ const SheduleAdminPage = () => {
                 }
 
 
-                {addNewGropVision ?
-                    <AddGroup></AddGroup>
-                    :
-                    <></>
-                }
+                <AddGroup vision={addNewGropVision}></AddGroup>
 
                 {deleteGroupVision ?
                     <DeleteGroupPage></DeleteGroupPage>
