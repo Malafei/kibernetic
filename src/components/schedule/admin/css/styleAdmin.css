@@ -87,3 +87,8 @@ td, th {
    
     max-width: 50px;
 }
+.containerDivCenter {
+    height: 10em;
+    display: flex;
+    align-items: center;
+}
