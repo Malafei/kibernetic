@@ -103,3 +103,7 @@
 .Cell-everyday:active{
     background-color:rgb(215, 215, 215);
 }
+.Button-align{
+
+    display: contents;
+}

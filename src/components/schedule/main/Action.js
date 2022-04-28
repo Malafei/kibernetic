@@ -20,6 +20,7 @@ export const ShowGroup= () => async (dispatch)=>{
     try{
         const {data} = await http.get("api/Shedule/showGroup");
         dispatch({type: SHOW_GROUP, payload: data});
+        console.log("data", data)
         return Promise.resolve(data);
     }
     catch(err){

@@ -1,40 +1,40 @@
 import { useField } from 'formik';
 import classNames from 'classnames';
 import React, { Component } from 'react'
-import Select from 'react-select'
+import { Menu, Dropdown, Button, message, Space, } from 'antd';
+import{DownOutlined} from '@ant-design/icons';
 
 
-const MySelectInput = ({ ...props }) => {
 
-
+const MySelectInput = ({ handleMenuClick, ...props }) => {
     const [field, meta] = useField(props);
+
+
+
+    const menu = (
+        <Menu
+            onClick={(e) => handleMenuClick(e)}
+            items={props.data}/>
+    )
+
 
     return (
         <>
-            <div className="mb-3">
-                {props.label != null ?
-                    <>
-                        <label htmlFor={props.id || props.name} className="form-label">{props.label}</label>
-                        <Select options={props.data}
-                            className={classNames("form-control",
-                                { "is-invalid": meta.error && meta.touched },
-                                { "is-valid": !meta.error && meta.touched })}
-                            {...field} {...props} />
+            <Dropdown overlay={menu}
+            className={classNames("form-control",
+            {"is-invalid": meta.error && meta.touched},
+            {"is-valid": !meta.error && meta.touched})}
+            {...field} {...props} >
+                
+                <Button>
+                    <Space>
+                       {props.label}
 
-                        {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
-                    </>
-                    :
-                    <>
-                        <Select options={props.data}
-                            className={classNames("form-control",
-                                { "is-invalid": meta.error && meta.touched },
-                                { "is-valid": !meta.error && meta.touched })}
-                            {...field} {...props} />
-
-                        {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
-                    </>
-                }
-            </div>
+                        <DownOutlined/>
+                    </Space>
+                </Button>
+            </Dropdown>
+        {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
         </>
     )
 

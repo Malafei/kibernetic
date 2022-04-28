@@ -31,12 +31,6 @@ const newsReducer = (state=initialState, action) => {
                 editedNews: payload
             }
         }
-        case NEWS_SAVE_EDIT:{
-            return{
-                ...state,
-            }
-        }
-
         default: {
             return state;
         }

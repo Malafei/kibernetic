@@ -4,20 +4,6 @@ import setAuthorizationToken from "../../utils/setAuthToken";
 import { LOGIN, LOGOUT } from "../../../constants/ActionConst";
 
 
-  /* } catch (err) {
-      if (axios.isAxiosError(err)) { // перевіряєм чи аксіос ловить помилки сервера
-          const serverError = err as AxiosError<ILoginErrors>; //присвоюєм їх
-
-          if (serverError && serverError.response) {
-              const { errors } = serverError.response.data;
-              return Promise.reject(errors); //повертаєм проміс з помилками
-          }
-      }
-      
-      return Promise.reject(); // якщо вони не в аксіосі повертаєм пустий хибний проміс */    
-  //}
-
-
 export const LoginUser = (data) => async (dispatch) =>{
     try{
         const response = await http.post("api/Account/login", data);

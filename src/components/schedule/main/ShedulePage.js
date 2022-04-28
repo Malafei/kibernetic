@@ -16,38 +16,45 @@ const ShedulePage = () => {
 
     const dispatch = useDispatch();
 
-    const { listGroup } = useSelector(state => state.shedule);
+    const {listGroup} = useSelector(state => state.group);
     const { isAuth } = useSelector(redux => redux.auth);
-    const [loading, setLoading] = useState(true);
-    const [items, setItems] = useState([]);
 
-    useEffect(() => {
-        try {
-            dispatch(ShowGroup())
-                .then(res => {
-                    setLoading(false);
-                    console.log("redux",listGroup);
-                    console.log("response", res)
-                    setItems(res);
-                })
-                .catch();
-        }
-        catch (error) {
-            console.log("server error global", error);
-        }
 
-    }, [])
+    const [loading, setLoading] = useState(false);
+    //const [nameGroup, setnameGroup] = useState("");
+    
+
+    // useEffect(() => {
+    //     try {
+    //         dispatch(ShowGroup())
+    //         .then(res =>{
+    //             setLoading(false);
+    //         })
+    //         .catch()
+            
+    //     }
+    //     catch (error) {
+    //         console.log("server error global", error);
+    //     }
+
+    // },[])
+
+
+    const handleMenuClick = (e) => {
+        formikRef.current.setFieldValue("nameGroup", e.key);
+    }
+
 
     const initState = {
         nameGroup: '',
-        dateDay: '',
+        
     };
 
     const formikRef = useRef();
 
 
     const onSubmitHandler = (values) => {
-
+        console.log(values);
     }
 
     return (
@@ -72,16 +79,20 @@ const ShedulePage = () => {
                         onSubmit={onSubmitHandler}
                         validationSchema={validatonFields()}>
                         <Form>
-                            <div className="row row-cols-1 row-cols-sm-2 g-2">
-                                <MySelectInput
-                                    //label="Виберіть групу"
-                                    name="nameGroup"
-                                    value={initState.nameGroup}
-                                    data ={items}
-                                />
 
-                                <div className='divTo_but'>
-                                    <button type="submit" className="btn btn-dark col-md-4 but showBtn">Показати</button>
+                        <div className="container">
+                                <div className="row containerDivCenter">
+                                    <div claclassNamess="col-sm">
+                                        <MySelectInput
+                                            label="Виберіть групу"
+                                            name="nameGroup"
+                                            data={listGroup}
+                                            handleMenuClick={handleMenuClick}
+                                        />
+                                    </div>
+                                    <div className="col-sm Button-align">
+                                        <button type="submit" className="btn btn-dark col-md-4">Показати</button>
+                                    </div>
                                 </div>
                             </div>
                         </Form>

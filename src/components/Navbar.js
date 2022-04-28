@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {useNavigate} from 'react-router';
 import { logout } from './auth/Login/Action';
 import { MOODLE } from '../constants/ActionConst';
+import { ShowGroup } from './schedule/main/Action';
 
 
 
@@ -19,6 +20,21 @@ const Navbar = () => {
         dispatch(logout());
         history("/");
     }
+
+    useEffect(() => {
+        try {
+            dispatch(ShowGroup())
+            .then(res =>{
+                
+            })
+            .catch()
+            
+        }
+        catch (error) {
+            console.log("server error global", error);
+        }
+
+    },[])
 
     return (
         <>
@@ -60,10 +76,7 @@ const Navbar = () => {
                         :
                         <ul className="navbar-nav">
                         <li className="nav-item">
-                            {user}
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/register" onClick={onClickLogout} >Користувачі</Link>
+                            <Link className="nav-link" to="/" >Користувачі</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/logout" onClick={onClickLogout} >{user}(Вихід)</Link>

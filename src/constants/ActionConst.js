@@ -13,10 +13,13 @@ export const NEWS_EDIT = 'NEWS_EDIT';
 export const NEWS_SAVE_EDIT = 'NEWS_SAVE_EDIT';
 
 
+export const SHOW_GROUP = 'SHOW_GROUP';
+export const GROUP_ADD = 'GROUP_ADD';
+export const GROUP_DELETE = 'GROUP_DELETE';
+export const GROUP_EDIT = 'GROUP_EDIT';
+
 export const SHEDULE_ALL = 'SHEDULE_ALL'
 export const SHEDULE_ADD = 'SHEDULE_ADD';
-export const GROUP_ADD = 'GROUP_ADD';
-export const SHOW_GROUP = 'SHOW_GROUP';
 export const SHEDULE_DELETED = 'SHEDULE_DELETED';
 export const SHEDULE_EDIT = 'SHEDULE_EDIT';
 export const SHEDULE_SAVE_EDIT = 'SHEDULE_SAVE_EDIT';
