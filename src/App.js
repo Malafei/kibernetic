@@ -9,6 +9,9 @@ import EditNewsPage from './components/news/edit/EditNewsPage';
 import AddNewsPage from './components/news/add/AddPage';
 import ShedulePage from './components/schedule/main/ShedulePage';
 import SheduleAdminPage from './components/schedule/admin/SheduleAdminPage';
+import UsersPage from './components/users/main';
+import EditUserPage from './components/users/edit/EditUserPage';
+import AddUserPage from './components/users/add/AddUserPage';
 
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
           <Route exact path="/news/edit/:id" element={<EditNewsPage />}></Route>
           <Route exact path="/shedule" element={<ShedulePage />}></Route>
           <Route exact path="/shedule/admin" element={<SheduleAdminPage />}></Route>
+          <Route exact path="/users" element={<UsersPage/>}></Route>
+          <Route exact path="/users/edit/:id" element={<EditUserPage/>}></Route>
+          <Route exact path="/users/add" element={<AddUserPage/>}></Route>
 
 
 

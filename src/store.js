@@ -4,6 +4,7 @@ import authReducer from "./components/auth/Reducer";
 import newsReducer from "./components/news/reducer";
 import sheduleReducer from "./components/schedule/reducers/SheduleReducer";
 import groupReducer from "./components/schedule/reducers/GroupReducer";
+import userReducer from "./components/users/reducer/reducer";
 
 
 const middleware = [
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     auth: authReducer,
     news: newsReducer,
     shedule: sheduleReducer,
-    group: groupReducer
+    group: groupReducer,
+    users: userReducer
 
 });
 

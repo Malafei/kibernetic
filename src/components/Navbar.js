@@ -76,7 +76,7 @@ const Navbar = () => {
                         :
                         <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/" >Користувачі</Link>
+                            <Link className="nav-link" to="/users" >Користувачі</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/logout" onClick={onClickLogout} >{user}(Вихід)</Link>

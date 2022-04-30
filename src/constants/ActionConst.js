@@ -27,6 +27,7 @@ export const SHEDULE_SAVE_EDIT = 'SHEDULE_SAVE_EDIT';
 
 export const USER_ALL = 'USER_ALL';
 export const USER_REGISTER = 'USER_REGISTER';
+export const USER_ADD = 'USER_REGISTER';
 export const USER_DELETE = 'USER_DELETE';
 export const USER_EDIT = 'USER_EDIT';
 export const USER_SAVE_EDIT = 'USER_SAVE_EDIT';
