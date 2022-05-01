@@ -3,6 +3,8 @@ import Modal from './MyModal';
 import classNames from 'classnames';
 import moment from 'moment';
 import "moment/locale/uk"
+import { Table } from 'antd';
+
 
 const Calendar = () => {
 
@@ -18,6 +20,12 @@ const Calendar = () => {
     const month = today.format('MMMM');
     const year = today.format('YYYY');
 
+    const columns = [{ title: 'час', dataIndex: 'time', key: 'time', sorter: true },
+    { title: 'Назва предмета', dataIndex: 'nameLesson', key: 'nameLesson'},
+    { title: 'Викладач', dataIndex: 'nameTeacher', key: 'nameTeacher'},
+    { title: 'ауд.', dataIndex: 'classRoom', key: 'classRoom'},
+    { title: 'Вид зайняття', dataIndex: 'typeLesson', key: 'typeLesson' },]
+
 
     const prevHandler = () =>{ setToday(prev => prev.clone().subtract(1,'month')) }
     const todayHandler = () =>{ setToday(moment()) }
@@ -27,8 +35,16 @@ const Calendar = () => {
     const [contextDay, setContextDay] = useState(()=><></>);
     const [isModal, setModal] = useState(false)
     const onClose = () => setModal(false)
-    const modalContext = (selectday) =>{
-        setContextDay(<span>{selectday}</span>)
+    const modalContext = (SheduleList) =>{
+        setContextDay(
+            <div className="row">
+            <Table
+                pagination={false}
+                columns={columns}
+                dataSource={daysArray}
+            />
+            </div>
+        )
         setModal(true);
     }
 

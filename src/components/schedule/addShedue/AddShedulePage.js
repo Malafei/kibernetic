@@ -7,7 +7,8 @@ import validatonFields from './Validation';
 import MySelectInput from '../../common/MySelectInput';
 
 
-const AddShedule = () => {
+const AddShedule = ({visible, onClose}) => {
+
     const [inputFields, setInputFields] = useState([
         { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }
     ])
@@ -35,10 +36,11 @@ const AddShedule = () => {
     const formikRef = useRef();
 
     const onSubmitHandler = (values) => {
-
+        onClose();
     }
 
 
+    if (!visible) return null
 
     return (
         <>

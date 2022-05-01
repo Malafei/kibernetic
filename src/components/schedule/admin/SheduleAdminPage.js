@@ -22,65 +22,50 @@ const SheduleAdminPage = () => {
     }
 
     const onAddShedule = () => {
+        onCloseAllWindow();
         setAddSheduleVision(true);
-        setEditSheduleVision(false);
-        setExportSheduleVision(false);
-        setDonwnloadTemplateSheduleVision(false);
-        //setAddNewGropVision(false);
-        setDeleteGroupVision(false);
-        setEditGroupVision(false);
     }
 
     const onEditShedule = () => {
-        setAddSheduleVision(false);
+        onCloseAllWindow();
         setEditSheduleVision(true);
-        setExportSheduleVision(false);
-        setDonwnloadTemplateSheduleVision(false);
-        //setAddNewGropVision(false);
-        setDeleteGroupVision(false);
-        setEditGroupVision(false);
     }
 
     const onExportShedule = () => {
-        setAddSheduleVision(false);
-        setEditSheduleVision(false);
+        onCloseAllWindow();
         setExportSheduleVision(true);
-        setDonwnloadTemplateSheduleVision(false);
-        //setAddNewGropVision(false);
-        setDeleteGroupVision(false);
-        setEditGroupVision(false);
     }
 
     const onDonwnloadTemplateShedule = () => {
-        setAddSheduleVision(false);
-        setEditSheduleVision(false);
-        setExportSheduleVision(false);
+        onCloseAllWindow();
         setDonwnloadTemplateSheduleVision(true);
-        //setAddNewGropVision(false);
-        setDeleteGroupVision(false);
-        setEditGroupVision(false);
+    }
+    
+    const onAddGroup = () => {
+        onCloseAllWindow();
+        setAddNewGropVision(true);
     }
 
     const onDeleteGroup = () => {
-        setAddSheduleVision(false);
-        setEditSheduleVision(false);
-        setExportSheduleVision(false);
-        setDonwnloadTemplateSheduleVision(false);
-        //setAddNewGropVision(false);
+        onCloseAllWindow();
         setDeleteGroupVision(true);
-        setEditGroupVision(false);
     }
 
     const onEditGroup = () => {
+        onCloseAllWindow();
+        setEditGroupVision(true);
+    }
+
+    const onCloseAllWindow = () =>{
         setAddSheduleVision(false);
         setEditSheduleVision(false);
         setExportSheduleVision(false);
         setDonwnloadTemplateSheduleVision(false);
-        //setAddNewGropVision(false);
+        setAddNewGropVision(false);
         setDeleteGroupVision(false);
-        setEditGroupVision(true);
+        setEditGroupVision(false);
     }
-
+    const onClose = () => onCloseAllWindow();
 
     return (
         <>
@@ -102,7 +87,7 @@ const SheduleAdminPage = () => {
                         <div className='Button-div-admin'>  
                             Завантажити шаблон
                         </div>
-                        <div className='Button-div-admin' onClick={() => setAddNewGropVision(true)}>
+                        <div className='Button-div-admin' onClick={() => onAddGroup()}>
                             Додати нову групу
                         </div>
                         <div className='Button-div-admin' onClick={() => onDeleteGroup()}>
@@ -119,20 +104,13 @@ const SheduleAdminPage = () => {
                 </div>
 
 
-                {addSheduleVision ?
-                    <AddShedule></AddShedule>
-                    :
-                    <></>
-                }
+                <AddShedule visible={addSheduleVision} onClose={onClose}/>
 
 
-                <AddGroup vision={addNewGropVision}></AddGroup>
+                <AddGroup visible={addNewGropVision} onClose={onClose}/>
 
-                {deleteGroupVision ?
-                    <DeleteGroupPage></DeleteGroupPage>
-                    :
-                    <></>
-                }
+
+                <DeleteGroupPage visible={deleteGroupVision}  onClose={onClose}/>
 
 
 

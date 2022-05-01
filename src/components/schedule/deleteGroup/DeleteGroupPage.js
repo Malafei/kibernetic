@@ -5,7 +5,7 @@ import validationFields from './Validation';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const DeleteGroupPage = () => {
+const DeleteGroupPage = ({visible, onClose}) => {
 
     const dispatch = useDispatch();
 
@@ -27,25 +27,10 @@ const DeleteGroupPage = () => {
     }
 
     const onSubmitHandler = (values) => {
-        //     const formData = new FormData();
-        //     Object.entries(values).forEach(([key, value]) => formData.append(key, value));
-        //     dispatch(GroupAdd(formData))
-        //         .then(result => {
-        //             console.log(result);
-
-        //             //history("/news");
-        //         })
-        //         .catch(ex => {
-        //             console.log(ex.errors.invalid)
-        //             const { errors } = ex;
-        //             Object.entries(errors).forEach(([key, values]) => {
-        //                 let message = '';
-        //                 values.forEach(text => message += text + " ");
-        //                 formikRef.current.setFieldError(key, message);
-        //             });
-        //             setInvalid(ex.errors.invalid);
-        //         })
+        onClose();
     }
+
+    if (!visible) return null
 
     return (
         <>

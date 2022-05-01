@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const AddGroup = ({vision}) => {
+const AddGroup = ({visible = false, onClose}) => {
 
 
     const initState = {
@@ -18,6 +18,7 @@ const AddGroup = ({vision}) => {
     const formikRef = useRef();
     const titleRef = useRef();
     const dispatch = useDispatch();
+    const history = useNavigate();
 
     const [invalid, setInvalid] = useState([]);
 
@@ -28,7 +29,7 @@ const AddGroup = ({vision}) => {
         dispatch(GroupAdd(formData))
             .then(result => {
                 console.log(result);
-                //setAddNewGropVision(false);
+                onClose()
             })
             .catch(ex => {
                 console.log(ex.errors.invalid)
@@ -42,11 +43,11 @@ const AddGroup = ({vision}) => {
             })
     }
 
+    
+    if (!visible) return null
+
     return (
         <>
-
-            {vision ?
-
                 <div className="album py-5">
                     <div className='Body-shedual-admin'>
                         <h1 ref={titleRef} className="offset-md-3 col-md-8" >Додати нову групу</h1>
@@ -92,9 +93,6 @@ const AddGroup = ({vision}) => {
                         </Formik>
                     </div>
                 </div>
-                :
-                <></>
-            }
         </>
     )
 }
