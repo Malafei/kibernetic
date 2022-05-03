@@ -31,6 +31,9 @@ const AddShedule = () => {
     const handleMenuClick = (e) => {
         formikRef.current.setFieldValue("typeLesson", e.key);
         console.log(e.key);
+        //ЛОХ
+        //ЯК МЕНЕ ЦЕ ЗАЄБАЛО
+        //АААААААААААА
     }
 
 
