@@ -42,7 +42,6 @@ const ShedulePage = () => {
 
     const handleMenuClick = (e) => {
         formikRef.current.setFieldValue("nameGroup", e.key);
-        return e.key;
     }
 
 
