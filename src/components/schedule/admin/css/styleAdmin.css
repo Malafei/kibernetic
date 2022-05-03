@@ -60,6 +60,7 @@
 .NotVisInput{
     max-height: 30px;
     border: 0px;
+    white-space: pre-line;
 }
 
 .Body-shedual-admin{

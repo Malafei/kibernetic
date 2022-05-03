@@ -55,7 +55,7 @@ const NewsPage = () => {
         setContextDay(
             <>
                 <div className='modal-header'>
-                    <img className='displayed' src={HOST + "/images/" + image} alt={image} height='225' />
+                    <img className='displayed' src={HOST + "images/" + image} alt={image} height='225' />
                     {/* <span className='modal-close' onClick={onClose}>&times; </span> */}
                 </div>
                 <div className='modal-body'>

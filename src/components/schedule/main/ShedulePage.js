@@ -19,7 +19,6 @@ const ShedulePage = () => {
     const {listGroup} = useSelector(state => state.group);
     const { isAuth } = useSelector(redux => redux.auth);
 
-
     const [loading, setLoading] = useState(false);
     //const [nameGroup, setnameGroup] = useState("");
     
@@ -42,6 +41,7 @@ const ShedulePage = () => {
 
     const handleMenuClick = (e) => {
         formikRef.current.setFieldValue("nameGroup", e.key);
+        console.log(e.key)
     }
 
 

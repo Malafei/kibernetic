@@ -16,7 +16,7 @@ const UsersPage = () => {
 
     const columns = [
         { title: 'Id', dataIndex: 'id', key: 'id', sorter: true },
-        { title: 'Login', dataIndex: 'login', key: 'login', render: text => <a>{text}</a>, sorter: true },
+        { title: 'Login', dataIndex: 'login', key: 'login', render: text => <a>{text}</a>, sorter: true,  editable: true },
         { title: 'Email', dataIndex: 'email', key: 'email' },
         { title: 'Delete', dataIndex: '', key: 'delete', render: id => <button type="button" onClick={() => onDeleteClick(id.id)} className="btn btn-danger">Delete</button>, },
         { title: 'Edit', dataIndex: '', key: 'edit', render: id => <Link className="btn btn-warning" to={`/users/edit/${id.id}`}>Edit</Link>, },

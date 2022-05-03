@@ -8,9 +8,7 @@ import MySelectInput from '../../common/MySelectInput';
 
 
 const AddShedule = () => {
-    const [inputFields, setInputFields] = useState([
-        { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }
-    ])
+    const [inputFields, setInputFields] = useState([{ time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }])
 
     const handleFormChange = (index, event) => {
         let data = [...inputFields];
@@ -30,12 +28,17 @@ const AddShedule = () => {
     }
 
 
+    const handleMenuClick = (e) => {
+        formikRef.current.setFieldValue("typeLesson", e.key);
+        console.log(e.key);
+    }
+
 
 
     const formikRef = useRef();
 
     const onSubmitHandler = (values) => {
-
+        console.log(values);
     }
 
 
@@ -66,7 +69,7 @@ const AddShedule = () => {
                                     {inputFields.map((input, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td className='oneColumn'>
+                                                <td>
                                                     <input
                                                         className='NotVisInput'
                                                         name='time'
@@ -91,7 +94,7 @@ const AddShedule = () => {
                                                         onChange={event => handleFormChange(index, event)}
                                                     />
                                                 </td>
-                                                <td className='fourColumn'>
+                                                <td>
                                                     <input
                                                         className='NotVisInput'
                                                         name='classRoom'
@@ -100,10 +103,12 @@ const AddShedule = () => {
                                                     />
                                                 </td>
                                                 <td>
-                                                    <MySelectInput
+                                                <MySelectInput
                                                         name="typeLesson"
                                                         value={input.typeLesson}
                                                         data={options}
+                                                        handleMenuClick={handleMenuClick}
+                                                        onChange={event => handleFormChange(index, event)}
                                                     />
                                                 </td>
                                                 <td>
