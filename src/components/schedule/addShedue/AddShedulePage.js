@@ -1,12 +1,11 @@
 import '../admin/css/styleAdmin.css'
 import { Formik, Form } from 'formik';
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { options } from '../../../constants/ActionConst'
 import { SheduleAdd } from './Action';
 import validatonFields from './Validation';
 import MySelectInput from '../../common/MySelectInput';
 import { useDispatch } from 'react-redux';
-import { SheduleAll } from '../main/Action';
 
 
 const AddShedule = ({visible, onClose}) => {
@@ -14,23 +13,26 @@ const AddShedule = ({visible, onClose}) => {
     const dispatch = useDispatch();
     const [invalid, setInvalid] = useState([]);
 
-    const initState ={
-        inputFields:[{}],
-        nameGroup:'ЄВІ-21',
+    const initState={
+        lessons: [],
+        key: '1',
         date:'10.08.2022'
-    }
-    const [inputFields, setInputFields] = useState([
-        { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }
-    ])
+    };
+
+    const [inputFields, setInputFields] = useState(
+        [ { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' } ]
+    )
 
     const handleFormChange = (index, event) => {
         let data = [...inputFields];
         data[index][event.target.name] = event.target.value;
         setInputFields(data);
+        formikRef.current.setFieldValue('lessons', inputFields)
+
     }
 
     const addFields = () => {
-        let newfield = { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }
+        let newfield = { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: ''}
         setInputFields([...inputFields, newfield])
     }
 
@@ -42,16 +44,9 @@ const AddShedule = ({visible, onClose}) => {
 
 
     const handleMenuClick = (index, e) => {
-        //let data = [...inputFields];
-        //data[index][e.target.name] = e.target.value;
-        //console.log(e.target.value);
         let data = [...inputFields];
         data[index]["typeLesson"] = e.key;
-        console.log(data);
         setInputFields(data)
-        //formikRef.current.setFieldValue(data)
-        //formikRef.current.setFieldValue(index+".typeLesson", e.key);
-        console.log(e.key);
     }
 
 
@@ -60,11 +55,13 @@ const AddShedule = ({visible, onClose}) => {
 
     const onSubmitHandler = (values) => {
         const formData = new FormData();
+        console.log(values);
         Object.entries(values).forEach(([key, value]) => formData.append(key, value));
         console.log(formData);
         dispatch(SheduleAdd(formData))
             .then(result => {
                 console.log(result);
+                onClose();
             })
             .catch(ex => {
                 console.log(ex.errors.invalid)
@@ -76,9 +73,6 @@ const AddShedule = ({visible, onClose}) => {
                 });
                 setInvalid(ex.errors.invalid);
             })
-
-        //console.log(values)
-        //onClose();
     }
 
 
@@ -88,13 +82,27 @@ const AddShedule = ({visible, onClose}) => {
         <>
             <div className="album py-5">
                 <div className='Body-shedual-admin'>
+                    {
+                        invalid && invalid.length > 0 &&
+                        <div className="alert alert-danger">
+                            <ul>
+                                {
+                                    invalid.map((text, index) => {
+                                        return (
+                                            <li key={index}>{text}</li>
+                                        );
+                                    })
+                                }
+                            </ul>
+                        </div>
+
+                    }
                     <Formik
                         innerRef={formikRef}
                         initialValues={initState}
                         onSubmit={onSubmitHandler}
                         validationSchema={validatonFields()}>
                         <Form>
-
                             <table className="table">
                                 <thead>
                                     <tr>
