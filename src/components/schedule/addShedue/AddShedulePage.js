@@ -2,13 +2,23 @@ import '../admin/css/styleAdmin.css'
 import { Formik, Form } from 'formik';
 import { useEffect, useRef, useState } from "react";
 import { options } from '../../../constants/ActionConst'
-
+import { SheduleAdd } from './Action';
 import validatonFields from './Validation';
 import MySelectInput from '../../common/MySelectInput';
+import { useDispatch } from 'react-redux';
+import { SheduleAll } from '../main/Action';
 
 
 const AddShedule = ({visible, onClose}) => {
 
+    const dispatch = useDispatch();
+    const [invalid, setInvalid] = useState([]);
+
+    const initState ={
+        inputFields:[{}],
+        nameGroup:'ЄВІ-21',
+        date:'10.08.2022'
+    }
     const [inputFields, setInputFields] = useState([
         { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }
     ])
@@ -31,12 +41,17 @@ const AddShedule = ({visible, onClose}) => {
     }
 
 
-    const handleMenuClick = (e) => {
-        formikRef.current.setFieldValue("typeLesson", e.key);
+    const handleMenuClick = (index, e) => {
+        //let data = [...inputFields];
+        //data[index][e.target.name] = e.target.value;
+        //console.log(e.target.value);
+        let data = [...inputFields];
+        data[index]["typeLesson"] = e.key;
+        console.log(data);
+        setInputFields(data)
+        //formikRef.current.setFieldValue(data)
+        //formikRef.current.setFieldValue(index+".typeLesson", e.key);
         console.log(e.key);
-        //ЛОХ
-        //ЯК МЕНЕ ЦЕ ЗАЄБАЛО
-        //АААААААААААА
     }
 
 
@@ -44,7 +59,26 @@ const AddShedule = ({visible, onClose}) => {
     const formikRef = useRef();
 
     const onSubmitHandler = (values) => {
-        onClose();
+        const formData = new FormData();
+        Object.entries(values).forEach(([key, value]) => formData.append(key, value));
+        console.log(formData);
+        dispatch(SheduleAdd(formData))
+            .then(result => {
+                console.log(result);
+            })
+            .catch(ex => {
+                console.log(ex.errors.invalid)
+                const { errors } = ex;
+                Object.entries(errors).forEach(([key, values]) => {
+                    let message = '';
+                    values.forEach(text => message += text + " ");
+                    formikRef.current.setFieldError(key, message);
+                });
+                setInvalid(ex.errors.invalid);
+            })
+
+        //console.log(values)
+        //onClose();
     }
 
 
@@ -56,10 +90,11 @@ const AddShedule = ({visible, onClose}) => {
                 <div className='Body-shedual-admin'>
                     <Formik
                         innerRef={formikRef}
-                        initialValues={inputFields}
+                        initialValues={initState}
                         onSubmit={onSubmitHandler}
                         validationSchema={validatonFields()}>
                         <Form>
+
                             <table className="table">
                                 <thead>
                                     <tr>
@@ -76,7 +111,7 @@ const AddShedule = ({visible, onClose}) => {
                                     {inputFields.map((input, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td className='oneColumn'>
+                                                <td>
                                                     <input
                                                         className='NotVisInput'
                                                         name='time'
@@ -101,7 +136,7 @@ const AddShedule = ({visible, onClose}) => {
                                                         onChange={event => handleFormChange(index, event)}
                                                     />
                                                 </td>
-                                                <td className='fourColumn'>
+                                                <td>
                                                     <input
                                                         className='NotVisInput'
                                                         name='classRoom'
@@ -114,21 +149,20 @@ const AddShedule = ({visible, onClose}) => {
                                                         name="typeLesson"
                                                         value={input.typeLesson}
                                                         data={options}
+                                                        handleMenuClick={event => handleMenuClick(index, event)}
+                                                        //onChange={event => handleFormChange(index, event)}
                                                     />
                                                 </td>
-                                                <td>
-                                                    <button onClick={() => removeFields(index)}>Remove</button>
-
-                                                </td>
+                                                <td onClick={() => removeFields(index)}>Remove</td>
 
                                             </tr>
+                                            
                                         )
                                     })}
-
-                                    <button onClick={addFields}>Додати зайняття</button>
                                 </tbody>
 
                             </table>
+                                    <div onClick={addFields}>Додати зайняття</div>
                             <div className='divTo_but'>
                                 <button type="submit" className="btn btn-dark col-md-4 but showBtn">Зберегти</button>
                             </div>

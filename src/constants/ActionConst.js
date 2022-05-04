@@ -33,6 +33,6 @@ export const USER_EDIT = 'USER_EDIT';
 export const USER_SAVE_EDIT = 'USER_SAVE_EDIT';
 
 
-export const options = [ { value: 'Лекція', label: 'Лекція' }, { value: 'Практична', label: 'Практична' }, { value: 'Факультатив', label: 'Факультатив' }, { value: 'Залік', label: 'Залік' }, { value: 'Іспит', label: 'Іспит'} ]
+export const options = [ { key: 'Лекція', label: 'Лекція' }, { key: 'Практична', label: 'Практична' }, { key: 'Факультатив', label: 'Факультатив' }, { key: 'Залік', label: 'Залік' }, { key: 'Іспит', label: 'Іспит'} ]
 
 

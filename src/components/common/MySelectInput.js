@@ -7,22 +7,22 @@ import { useSelector } from 'react-redux';
 
 
 
-const MySelectInput = ({ handleMenuClick, ...props }) => {
+const MySelectInput = ({handleMenuClick, ...props }) => {
     const [field, meta] = useField(props);
     const {listGroup} = useSelector(state => state.group);
 
 
-
     const menu = (
         <Menu
-            onClick={(e) => handleMenuClick(e)}
-            items={props.data}/>
+            onClick={(e)=> handleMenuClick(e)}
+            items={props.data}
+            />
     )
 
 
     return (
         <>
-            <Dropdown overlay={menu}
+            <Dropdown name={props.name} overlay={menu}
             className={classNames("form-control",
             {"is-invalid": meta.error && meta.touched},
             {"is-valid": !meta.error && meta.touched})}
