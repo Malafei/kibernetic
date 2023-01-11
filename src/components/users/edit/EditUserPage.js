@@ -30,8 +30,8 @@ const EditUserPage = () => {
     const onSubmitHandler = (values) => {
 
         confirm({
-            title: 'Edit student?',
-            content: 'Do you want to Edit this student?',
+            title: 'Редагування користувача?',
+            content: 'Ви впевнені що хочете внести зміди до цього користувача?',
             onOk() {
                 const formData = new FormData();
                 Object.entries(values).forEach(([key, value]) => formData.append(key, value));

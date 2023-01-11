@@ -1,4 +1,4 @@
-import {  GROUP_ADD, GROUP_DELETE, SHOW_GROUP } from "../../../constants/ActionConst";
+import {  GROUP_ADD, GROUP_DELETE, SHOW_GROUP, GROUP_EDIT } from "../../../constants/ActionConst";
 
 const initialState = {
     listGroup: [],
@@ -24,6 +24,12 @@ const groupReducer = (state=initialState, action) => {
             return{
                 ...state,
                 listGroup: state.listGroup.filter(item => item.id !== payload)
+            }
+        }
+        case GROUP_EDIT: {
+            return {
+                ...state,
+                editedShedule: payload
             }
         }
 

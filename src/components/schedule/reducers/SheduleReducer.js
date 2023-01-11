@@ -37,11 +37,6 @@ const sheduleReducer = (state=initialState, action) => {
                 ...state,
             }
         }
-        case GROUP_ADD:{
-            return{
-                ...state,
-            }
-        }
 
         default: {
             return state;

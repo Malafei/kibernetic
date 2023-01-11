@@ -5,22 +5,31 @@ import { options } from '../../../constants/ActionConst'
 import { SheduleAdd } from './Action';
 import validatonFields from './Validation';
 import MySelectInput from '../../common/MySelectInput';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import DatePicker, { registerLocale } from "react-datepicker";
+import uk from "date-fns/locale/uk";
+import "react-datepicker/dist/react-datepicker.css";
 
 
-const AddShedule = ({visible, onClose}) => {
+const AddShedule = ({ visible, onClose }) => {
 
+    registerLocale("uk", uk);
     const dispatch = useDispatch();
     const [invalid, setInvalid] = useState([]);
 
-    const initState={
+    const { listGroup } = useSelector(state => state.group);
+
+
+
+    const initState = {
+        //key: '1',
         lessons: [],
-        key: '1',
-        date:'10.08.2022'
+        date: new Date(),
+        nameGroup: ''
     };
 
     const [inputFields, setInputFields] = useState(
-        [ { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' } ]
+        [{ time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }]
     )
 
     const handleFormChange = (index, event) => {
@@ -32,7 +41,7 @@ const AddShedule = ({visible, onClose}) => {
     }
 
     const addFields = () => {
-        let newfield = { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: ''}
+        let newfield = { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }
         setInputFields([...inputFields, newfield])
     }
 
@@ -43,20 +52,29 @@ const AddShedule = ({visible, onClose}) => {
     }
 
 
-    const handleMenuClick = (index, e) => {
+    const handleMenuClickLesson = (index, e) => {
         let data = [...inputFields];
         data[index]["typeLesson"] = e.key;
         setInputFields(data)
     }
 
+    const handleMenuClick = (e) => {
+
+        formikRef.current.setFieldValue("nameGroup", e.key);
+        console.log(e);
+    }
 
 
     const formikRef = useRef();
 
     const onSubmitHandler = (values) => {
         const formData = new FormData();
+        formData.append("lessons", values.lessons);
+        formData.append("date", new Date(values.date));
+        formData.append("nameGroup", values.nameGroup);
+        //Object.entries(values.lessons).forEach(([key, value]) => formData.append(key, value));
+        console.log(values.lessons);
         console.log(values);
-        Object.entries(values).forEach(([key, value]) => formData.append(key, value));
         console.log(formData);
         dispatch(SheduleAdd(formData))
             .then(result => {
@@ -64,7 +82,7 @@ const AddShedule = ({visible, onClose}) => {
                 onClose();
             })
             .catch(ex => {
-                console.log(ex.errors.invalid)
+                console.log(ex)
                 const { errors } = ex;
                 Object.entries(errors).forEach(([key, values]) => {
                     let message = '';
@@ -73,6 +91,12 @@ const AddShedule = ({visible, onClose}) => {
                 });
                 setInvalid(ex.errors.invalid);
             })
+    }
+
+
+    const handleChange = (date) => {
+        console.log(date);
+        formikRef.current.setFieldValue("date", date);
     }
 
 
@@ -103,74 +127,95 @@ const AddShedule = ({visible, onClose}) => {
                         onSubmit={onSubmitHandler}
                         validationSchema={validatonFields()}>
                         <Form>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th className='oneColumn' scope="col">час</th>
-                                        <th scope="col">Назва предмета</th>
-                                        <th scope="col">Викладач</th>
-                                        <th scope="col">ауд.</th>
-                                        <th scope="col">Вид зайняття</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
+                            <div className="container">
+                                <div className="row containerDivCenter">
+                                    <div className="col-sm">
+                                        <MySelectInput
+                                            label="Виберіть групу"
+                                            name="nameGroup"
+                                            id="nameGroup"
+                                            data={listGroup}
+                                            handleMenuClick={handleMenuClick}
+                                        />
+                                    </div>
+                                </div>
+                                <DatePicker
+                                    className="form-control"
+                                    dateFormat="dd.MM.yyyy"
+                                    selected={initState.date}
+                                    onChange={handleChange}
+                                    name="date"
+                                    locale="uk"
+                                />
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th className='oneColumn' scope="col">час</th>
+                                            <th scope="col">Назва предмета</th>
+                                            <th scope="col">Викладач</th>
+                                            <th scope="col">ауд.</th>
+                                            <th scope="col">Вид зайняття</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
 
-                                <tbody>
-                                    {inputFields.map((input, index) => {
-                                        return (
-                                            <tr key={index}>
-                                                <td>
-                                                    <input
-                                                        className='NotVisInput'
-                                                        name='time'
-                                                        value={input.time}
-                                                        onChange={event => handleFormChange(index, event)}
-                                                    />
-                                                </td>
-                                                <td>
+                                    <tbody>
+                                        {inputFields.map((input, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <td>
+                                                        <input
+                                                            className='NotVisInput'
+                                                            name='time'
+                                                            value={input.time}
+                                                            onChange={event => handleFormChange(index, event)}
+                                                        />
+                                                    </td>
+                                                    <td>
 
-                                                    <input
-                                                        className='NotVisInput'
-                                                        name='nameLesson'
-                                                        value={input.nameLesson}
-                                                        onChange={event => handleFormChange(index, event)}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <input
-                                                        className='NotVisInput'
-                                                        name='nameTeacher'
-                                                        value={input.nameTeacher}
-                                                        onChange={event => handleFormChange(index, event)}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <input
-                                                        className='NotVisInput'
-                                                        name='classRoom'
-                                                        value={input.classRoom}
-                                                        onChange={event => handleFormChange(index, event)}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <MySelectInput
-                                                        name="typeLesson"
-                                                        value={input.typeLesson}
-                                                        data={options}
-                                                        handleMenuClick={event => handleMenuClick(index, event)}
+                                                        <input
+                                                            className='NotVisInput'
+                                                            name='nameLesson'
+                                                            value={input.nameLesson}
+                                                            onChange={event => handleFormChange(index, event)}
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            className='NotVisInput'
+                                                            name='nameTeacher'
+                                                            value={input.nameTeacher}
+                                                            onChange={event => handleFormChange(index, event)}
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            className='NotVisInput'
+                                                            name='classRoom'
+                                                            value={input.classRoom}
+                                                            onChange={event => handleFormChange(index, event)}
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <MySelectInput
+                                                            name="typeLesson"
+                                                            value={input.typeLesson}
+                                                            data={options}
+                                                            handleMenuClick={event => handleMenuClickLesson(index, event)}
                                                         //onChange={event => handleFormChange(index, event)}
-                                                    />
-                                                </td>
-                                                <td onClick={() => removeFields(index)}>Remove</td>
+                                                        />
+                                                    </td>
+                                                    <td> <div className='btn btn-dark' onClick={() => removeFields(index)}>Видалити</div></td>
 
-                                            </tr>
-                                            
-                                        )
-                                    })}
-                                </tbody>
+                                                </tr>
 
-                            </table>
-                                    <div onClick={addFields}>Додати зайняття</div>
+                                            )
+                                        })}
+                                    </tbody>
+
+                                </table>
+                                <div className='btn btn-dark' onClick={addFields}>Додати зайняття</div>
+                            </div>
                             <div className='divTo_but'>
                                 <button type="submit" className="btn btn-dark col-md-4 but showBtn">Зберегти</button>
                             </div>

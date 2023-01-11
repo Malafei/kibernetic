@@ -2,6 +2,9 @@ import { Formik, Form } from 'formik';
 import { useEffect, useRef, useState } from "react";
 import MySelectInput from '../../common/MySelectInput';
 import validationFields from './Validation';
+import { GroupDelete } from './Action';
+import { ShowGroup } from '../main/Action';
+import EclipseWidget from '../../common/EclipseWidget';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -10,11 +13,24 @@ const DeleteGroupPage = ({visible, onClose}) => {
     const dispatch = useDispatch();
 
     const { listGroup } = useSelector(state => state.group);
+    const label = "Виберіть групу";
 
     const initState = {
         nameGroup: '',
     };
 
+    //  const onDeleteClick = (id) => {
+    //     try {
+    //         dispatch(NewsDelete(id))
+    //             .then()
+    //             .catch();
+    //     }
+    //     catch (error) {
+    //         console.log("server error global");
+    //     }
+    // }
+    const [loading, setLoading] = useState(false);
+    
 
     const formikRef = useRef();
 
@@ -24,9 +40,24 @@ const DeleteGroupPage = ({visible, onClose}) => {
 
     const handleMenuClick = (e) => {
         formikRef.current.setFieldValue("nameGroup", e.key);
+        console.log(e);
     }
 
-    const onSubmitHandler = (values) => {
+    const onSubmitHandler = (id) => {
+        try {
+            dispatch(GroupDelete(id.nameGroup))
+                .then(
+                    dispatch(ShowGroup())
+                    .then(res =>{
+                        setLoading(false);
+                    })
+                    .catch()
+                )
+                .catch();
+        }
+        catch (error) {
+            console.log("server error global");
+        }
         onClose();
     }
 
@@ -52,6 +83,7 @@ const DeleteGroupPage = ({visible, onClose}) => {
                             </ul>
                         </div>
 
+
                     }
                     <Formik
                         innerRef={formikRef}
@@ -63,8 +95,9 @@ const DeleteGroupPage = ({visible, onClose}) => {
                                 <div className="row containerDivCenter">
                                     <div className="col-sm">
                                         <MySelectInput
-                                            label="Виберіть групу"
+                                            label={label}
                                             name="nameGroup"
+                                            id="nameGroup"
                                             data={listGroup}
                                             handleMenuClick={handleMenuClick}
                                         />
@@ -76,6 +109,7 @@ const DeleteGroupPage = ({visible, onClose}) => {
                             </div>
                         </Form>
                     </Formik>
+                    {loading && <EclipseWidget />}
                 </div>
             </div>
         </>

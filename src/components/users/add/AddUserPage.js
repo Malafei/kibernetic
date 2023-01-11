@@ -30,8 +30,8 @@ const AddUserPage = () => {
     const onSubmitHandler = (values) => {
 
         confirm({
-            title: 'Add student?',
-            content: 'Do you want to add new student?',
+            title: 'Додавання користувача?',
+            content: 'Ви впевнені що хочете додати нового користувача?',
             onOk() {
                 const formData = new FormData();
                 Object.entries(values).forEach(([key, value]) => formData.append(key, value));

@@ -15,7 +15,6 @@ const UsersPage = () => {
 
 
     const columns = [
-        { title: 'Id', dataIndex: 'id', key: 'id', sorter: true },
         { title: 'Login', dataIndex: 'login', key: 'login', render: text => <a>{text}</a>, sorter: true },
         { title: 'Email', dataIndex: 'email', key: 'email' },
         { title: 'Delete', dataIndex: '', key: 'delete', render: id => <button type="button" onClick={() => onDeleteClick(id.id)} className="btn btn-danger">Delete</button>, },
@@ -28,7 +27,7 @@ const UsersPage = () => {
                 .then(res => {
                     setLoading(false);
                 })
-                .catch(res => {setLoading(false)});
+                .catch(res => { setLoading(false) });
         }
         catch (error) {
             console.log("server error global", error);
@@ -73,21 +72,29 @@ const UsersPage = () => {
     }
 
     return (
-        <div className="row">
-            <Search
-                placeholder="input search text"
-                allowClear
-                enterButton="Search"
-                size="large"
-                onSearch={(text) => GetData(text)}
-            />
-            <Table
-                pagination={true}
-                columns={columns}
-                dataSource={listUser}
-            />
-            <Link className="btn btn-success offset-md-10 col-md-2" to={`/users/add`}>Add User</Link>
+        <div className="album py-5">
+            <div className='Body-shedual-admin'>
+                <div className="container">
+                    <div className="row containerDivCenter">
+                        <div className="col-sm">
+                            <Search
+                                placeholder="input search text"
+                                allowClear
+                                enterButton="Search"
+                                size="large"
+                                onSearch={(text) => GetData(text)}
+                            />
+                            <Table
+                                pagination={true}
+                                columns={columns}
+                                dataSource={listUser}
+                            />
+                            <Link className="btn btn-success offset-md-10 col-md-2" to={`/users/add`}>Add User</Link>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 

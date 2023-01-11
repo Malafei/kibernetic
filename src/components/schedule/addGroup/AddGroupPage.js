@@ -3,8 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import MyTextInput from '../../common/MyTextInput';
 import validationFields from './Validation';
 import { GroupAdd } from './Action';
+import { ShowGroup } from '../main/Action';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import EclipseWidget from '../../common/EclipseWidget';
 
 
 
@@ -20,6 +22,7 @@ const AddGroup = ({visible = false, onClose}) => {
     const dispatch = useDispatch();
     const history = useNavigate();
 
+    const [loading, setLoading] = useState(false);
     const [invalid, setInvalid] = useState([]);
 
 
@@ -28,6 +31,17 @@ const AddGroup = ({visible = false, onClose}) => {
         Object.entries(values).forEach(([key, value]) => formData.append(key, value));
         dispatch(GroupAdd(formData))
             .then(result => {
+                try {
+                    dispatch(ShowGroup())
+                    .then(res =>{
+                        setLoading(false);
+                    })
+                    .catch()
+                    
+                }
+                catch (error) {
+                    console.log("server error global", error);
+                }
                 console.log(result);
                 onClose()
             })
@@ -91,6 +105,7 @@ const AddGroup = ({visible = false, onClose}) => {
 
                             </Form>
                         </Formik>
+                    {loading && <EclipseWidget />}
                     </div>
                 </div>
         </>

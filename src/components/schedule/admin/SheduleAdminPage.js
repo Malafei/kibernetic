@@ -5,6 +5,7 @@ import MySelectInput from '../../common/MySelectInput';
 import AddGroup from '../addGroup/AddGroupPage';
 import AddShedule from '../addShedue/AddShedulePage';
 import DeleteGroupPage from '../deleteGroup/DeleteGroupPage';
+import EditGroup from '../editGroup/EditGroupPage';
 
 const SheduleAdminPage = () => {
 
@@ -96,9 +97,6 @@ const SheduleAdminPage = () => {
                         <div className='Button-div-admin' onClick={() => onEditGroup()}>
                             Редагувати групу
                         </div>
-                        <div onClick={() => console.log("насипав")} className='Button-div-admin'>
-                            насипати хуїв у кружку
-                        </div>
                         <div></div>
                     </div>
                 </div>
@@ -106,11 +104,11 @@ const SheduleAdminPage = () => {
 
                 <AddShedule visible={addSheduleVision} onClose={onClose}/>
 
-
                 <AddGroup visible={addNewGropVision} onClose={onClose}/>
 
-
                 <DeleteGroupPage visible={deleteGroupVision}  onClose={onClose}/>
+                
+                <EditGroup visible={editGroupVision} onClose={onClose}/>
 
 
 

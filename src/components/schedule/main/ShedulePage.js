@@ -24,20 +24,20 @@ const ShedulePage = () => {
     //const [nameGroup, setnameGroup] = useState("");
     
 
-    // useEffect(() => {
-    //     try {
-    //         dispatch(ShowGroup())
-    //         .then(res =>{
-    //             setLoading(false);
-    //         })
-    //         .catch()
+    useEffect(() => {
+        try {
+            dispatch(ShowGroup())
+            .then(res =>{
+                setLoading(false);
+            })
+            .catch()
             
-    //     }
-    //     catch (error) {
-    //         console.log("server error global", error);
-    //     }
+        }
+        catch (error) {
+            console.log("server error global", error);
+        }
 
-    // },[])
+    },[])
 
 
     const handleMenuClick = (e) => {

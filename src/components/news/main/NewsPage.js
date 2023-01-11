@@ -120,7 +120,7 @@ const NewsPage = () => {
                                                     <div className="d-flex justify-content-between align-items-center">
                                                         {!isAuth ?
                                                             <div className='btn-group'>
-                                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => setModal(true)}>Деталі</button>
+                                                                <button className="btn btn-sm btn-outline-secondary" onClick={() => onDetailClick(news.name, news.description, news.image)}>Деталі</button>
                                                             </div>
                                                             :
                                                             <div className='btn-group'>
