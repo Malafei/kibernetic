@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DatePicker, { registerLocale } from "react-datepicker";
 import uk from "date-fns/locale/uk";
 import "react-datepicker/dist/react-datepicker.css";
+import TimeWrapper from '../../common/TimeWraper';
 
 
 const AddShedule = ({ visible, onClose }) => {
@@ -59,24 +60,22 @@ const AddShedule = ({ visible, onClose }) => {
     }
 
     const handleMenuClick = (e) => {
-
         formikRef.current.setFieldValue("nameGroup", e.key);
-        console.log(e);
+        //console.log(e);
     }
 
 
     const formikRef = useRef();
 
     const onSubmitHandler = (values) => {
-        const formData = new FormData();
-        formData.append("lessons", values.lessons);
-        formData.append("date", new Date(values.date));
-        formData.append("nameGroup", values.nameGroup);
-        //Object.entries(values.lessons).forEach(([key, value]) => formData.append(key, value));
-        console.log(values.lessons);
+        //const formData = new FormData();
+        //formData.append('lessons', values.lessons);
+        //formData.append('date', values.date.toISOString());
+        //formData.append('nameGroup', values.nameGroup);
+        //Object.entries(values).forEach(([key, value]) => formData.append(key, value));
         console.log(values);
-        console.log(formData);
-        dispatch(SheduleAdd(formData))
+        console.log(values.date.toISOString());
+        dispatch(SheduleAdd(values))
             .then(result => {
                 console.log(result);
                 onClose();
@@ -95,7 +94,7 @@ const AddShedule = ({ visible, onClose }) => {
 
 
     const handleChange = (date) => {
-        console.log(date);
+        //console.log(date);
         formikRef.current.setFieldValue("date", date);
     }
 
