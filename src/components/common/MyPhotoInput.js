@@ -5,8 +5,8 @@ const MyPhotoInput = ({ Myfield, formikRef, data, ...props}) => {
 
 
     // фото яке показується по замовчувані
-    // ми сказали шо у поле фото Буде закидать через сетфото
-    const [photo, setPhoto] = useState(data ? data : "https://bytes.ua/wp-content/uploads/2017/08/no-image.png");
+    // ми сказали шо у поле фото Буде закидать через сетфото "../../icons/no-image-icon.png"  "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-4.png"
+    const [photo, setPhoto] = useState(data ? data : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-4.png");
     // ми сказали шо у поле ерор Буде закидать через сетерор
     const [error, setError] = useState("");
 
@@ -19,10 +19,10 @@ const MyPhotoInput = ({ Myfield, formikRef, data, ...props}) => {
 
         const files = event.currentTarget.files;
 
-        //if (!(files && files[0])) {
-        //    setError("Поле не може бути пустим")// якщо файл не обрано наказуємо обрати фото
-        //    return;//виходимо з функції selectImage
-        //}
+        if (!(files && files[0])) {
+            setError("Ви не зробили свій вибір тому фото\n залишиться стандартним або попередньо вибране")// якщо файл не обрано наказуємо обрати фото
+            return;//виходимо з функції selectImage
+        }
         if (!(((files[0].size / 1024) / 1024) < 10)) { // перевіряємо чи розмір не перевищує 10 мб (переводимо байти в мегабайти)
             setError("Занадто великий файл")// якщо розмір файлу неправильний наказуємо обрати фото меншого розміру
             return; //виходимо з функції selectImage
@@ -51,7 +51,7 @@ const MyPhotoInput = ({ Myfield, formikRef, data, ...props}) => {
                 id={field.name}
                 onChange={selectImage}
             />
-
+            <br></br>
             {error && <span className="text-danger">{error}</span>} 
         {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
 

@@ -5,7 +5,7 @@ import MyTextInput from '../../common/MyTextInput';
 import { useNavigate, useParams } from "react-router-dom";
 import EclipseWidget from '../../common/EclipseWidget';
 import validationFields from './Validation';
-import { UserEdit, UserEditSave } from '../actions/UserActions';
+import { UserEdit, UserEditSave } from './Action';
 import { message, Modal } from 'antd';
 
 const EditUserPage = () => {

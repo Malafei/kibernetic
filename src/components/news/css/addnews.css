@@ -1,9 +1,19 @@
 .but{
     height: 44px;
-    min-width: 170px;
+    min-width: 160px;
     vertical-align: bottom;
     text-align: center;
     font-size: 16px;
+}
+.text{
+    vertical-align: bottom;
+    text-align: center;
+    font-size: 10px;
+}
+.PadingNull
+{
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .divTo_but{

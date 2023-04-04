@@ -9,7 +9,7 @@ import EditNewsPage from './components/news/edit/EditNewsPage';
 import AddNewsPage from './components/news/add/AddPage';
 import ShedulePage from './components/schedule/main/ShedulePage';
 import SheduleAdminPage from './components/schedule/admin/SheduleAdminPage';
-import UsersPage from './components/users/main';
+import UsersPage from './components/users/main/UsersPage';
 import EditUserPage from './components/users/edit/EditUserPage';
 import AddUserPage from './components/users/add/AddUserPage';
 

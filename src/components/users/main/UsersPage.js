@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { GetUsers, SearchUser, UserDelete } from "../actions/UserActions";
+import { GetUsers, SearchUser, UserDelete } from "./Action";
 import { Pagination, Table, Input, Modal, message } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
@@ -15,10 +15,10 @@ const UsersPage = () => {
 
 
     const columns = [
-        { title: 'Login', dataIndex: 'login', key: 'login', render: text => <a>{text}</a>, sorter: true },
+        { title: 'Логін', dataIndex: 'login', key: 'login', render: text => <a>{text}</a>, sorter: true },
         { title: 'Email', dataIndex: 'email', key: 'email' },
-        { title: 'Delete', dataIndex: '', key: 'delete', render: id => <button type="button" onClick={() => onDeleteClick(id.id)} className="btn btn-danger">Delete</button>, },
-        { title: 'Edit', dataIndex: '', key: 'edit', render: id => <Link className="btn btn-warning" to={`/users/edit/${id.id}`}>Edit</Link>, },
+        { title: 'Видалення', dataIndex: '', key: 'delete', render: id => <button type="button" onClick={() => onDeleteClick(id.id)} className="btn btn-danger">Видалити</button>, },
+        { title: 'Редагування', dataIndex: '', key: 'edit', render: id => <Link className="btn btn-warning" to={`/users/edit/${id.id}`}>Редагувати</Link>, },
     ]
 
     useEffect(() => {
@@ -50,17 +50,17 @@ const UsersPage = () => {
 
     const onDeleteClick = (id) => {
         confirm({
-            title: 'Delete student?',
-            content: 'Do you want to delete this student?',
+            title: 'Видалити користувача',
+            content: 'Ви дійсно хочете видалити користувача?',
             onOk() {
                 try {
                     dispatch(UserDelete(id))
                         .then(res => {
-                            message.success('User deleted successfully :)');
+                            message.success('Користувача успішно видалено');
 
                         })
                         .catch(res => {
-                            message.error('Something went wrong :(');
+                            message.error('Схоже у нас помилка', res);
                             console.log(res);
                         })
                 } catch (error) {
@@ -72,27 +72,23 @@ const UsersPage = () => {
     }
 
     return (
-        <div className="album py-5">
-            <div className='Body-shedual-admin'>
-                <div className="container">
-                    <div className="row containerDivCenter">
-                        <div className="col-sm">
-                            <Search
-                                placeholder="input search text"
-                                allowClear
-                                enterButton="Search"
-                                size="large"
-                                onSearch={(text) => GetData(text)}
-                            />
-                            <Table
-                                pagination={true}
-                                columns={columns}
-                                dataSource={listUser}
-                            />
-                            <Link className="btn btn-success offset-md-10 col-md-2" to={`/users/add`}>Add User</Link>
+        <div className='Body-shedual-admin'>
+            <div className="container">
+                <div className="col-sm">
+                    <Search
+                        placeholder="Введіть текст для пошуку"
+                        allowClear
+                        enterButton="Пошук"
+                        size="large"
+                        onSearch={(text) => GetData(text)}
+                    />
+                    <Table
+                        pagination={true}
+                        columns={columns}
+                        dataSource={listUser}
+                    />
+                    <Link className="btn btn-success offset-md-10 col-md-2" to={`/users/add`}>Додати користувача</Link>
 
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

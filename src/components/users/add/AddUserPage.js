@@ -5,7 +5,7 @@ import MyTextInput from '../../common/MyTextInput';
 import { useNavigate, useParams } from "react-router-dom";
 import EclipseWidget from '../../common/EclipseWidget';
 import validationFields from './Validation';
-import { UserAdd } from '../actions/UserActions';
+import { UserAdd } from './Action';
 import { message, Modal } from 'antd';
 
 
@@ -14,7 +14,8 @@ const AddUserPage = () => {
     const initState = {
         email: '',
         login: '',
-        password: ''
+        password: '',
+        confirmPassword: ""
     };
 
     const { isAuth } = useSelector(redux => redux.auth);
@@ -82,7 +83,7 @@ const AddUserPage = () => {
                             validationSchema={validationFields()}>
                             <Form>
                                 <MyTextInput
-                                    label="Login"
+                                    label="Логін"
                                     name="login"
                                     type="text"
                                     id="login"
@@ -98,11 +99,19 @@ const AddUserPage = () => {
                                 />
 
                                 <MyTextInput
-                                    label="Password"
+                                    label="Пароль"
                                     name="password"
                                     type="password"
                                     id="password"
                                     placeH="Введіть пароль користувача"
+                                />
+                                
+                                <MyTextInput
+                                label="Пароль"
+                                name="confirmPassword"
+                                type="password"
+                                id="confirmPassword"
+                                placeH="Повторіть пароль користувача"
                                 />
 
                                 <button type="submit" className="btn btn-dark">Зберегти</button>
