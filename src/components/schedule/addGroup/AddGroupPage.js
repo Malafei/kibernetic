@@ -27,6 +27,7 @@ const AddGroup = ({visible = false, onClose}) => {
 
 
     const onSubmitHandler = (values) => {
+        console.log("message");
         const formData = new FormData();
         Object.entries(values).forEach(([key, value]) => formData.append(key, value));
         dispatch(GroupAdd(formData))

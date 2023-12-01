@@ -9,75 +9,49 @@ import { useDispatch, useSelector } from 'react-redux';
 import DatePicker, { registerLocale } from "react-datepicker";
 import uk from "date-fns/locale/uk";
 import "react-datepicker/dist/react-datepicker.css";
+import AddLessonsToShedule from './AddLessonsToShedule';
 import TimeWrapper from '../../common/TimeWraper';
 
 
 const AddShedule = ({ visible, onClose }) => {
 
     registerLocale("uk", uk);
+    const [addLessonsToSheduleVision, setAddLessonsToSheduleVision] = useState(false);
     const dispatch = useDispatch();
     const [invalid, setInvalid] = useState([]);
+    const formikRef = useRef();
+    const [Rdate, setDate] = useState(new Date());
+    //const [nameGroup, setNameGroup] = useState();
 
     const { listGroup } = useSelector(state => state.group);
 
 
 
     const initState = {
-        //key: '1',
-        lessons: [],
         date: new Date(),
-        nameGroup: ''
+        nameGroup: 0
     };
 
-    const [inputFields, setInputFields] = useState(
-        [{ time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }]
-    )
-
-    const handleFormChange = (index, event) => {
-        let data = [...inputFields];
-        data[index][event.target.name] = event.target.value;
-        setInputFields(data);
-        formikRef.current.setFieldValue('lessons', inputFields)
-
-    }
-
-    const addFields = () => {
-        let newfield = { time: '', nameLesson: '', nameTeacher: '', classRoom: '', typeLesson: '' }
-        setInputFields([...inputFields, newfield])
-    }
-
-    const removeFields = (index) => {
-        let data = [...inputFields];
-        data.splice(index, 1)
-        setInputFields(data)
-    }
-
-
-    const handleMenuClickLesson = (index, e) => {
-        let data = [...inputFields];
-        data[index]["typeLesson"] = e.key;
-        setInputFields(data)
+    const onAddLessonsToShedule = () => {
+        setAddLessonsToSheduleVision(true);
     }
 
     const handleMenuClick = (e) => {
         formikRef.current.setFieldValue("nameGroup", e.key);
-        //console.log(e);
     }
 
 
-    const formikRef = useRef();
 
     const onSubmitHandler = (values) => {
-        //const formData = new FormData();
-        //formData.append('lessons', values.lessons);
-        //formData.append('date', values.date.toISOString());
-        //formData.append('nameGroup', values.nameGroup);
-        //Object.entries(values).forEach(([key, value]) => formData.append(key, value));
-        console.log(values);
-        console.log(values.date.toISOString());
-        dispatch(SheduleAdd(values))
+        const formData = new FormData();
+        formData.append('date', values.date.toISOString());
+        formData.append('nameGroup', values.nameGroup);
+
+        dispatch(SheduleAdd(formData))
             .then(result => {
+                console.log("good");
                 console.log(result);
+                onAddLessonsToShedule();
                 onClose();
             })
             .catch(ex => {
@@ -94,8 +68,8 @@ const AddShedule = ({ visible, onClose }) => {
 
 
     const handleChange = (date) => {
-        //console.log(date);
         formikRef.current.setFieldValue("date", date);
+        setDate(date)
     }
 
 
@@ -141,87 +115,22 @@ const AddShedule = ({ visible, onClose }) => {
                                 <DatePicker
                                     className="form-control"
                                     dateFormat="dd.MM.yyyy"
-                                    selected={initState.date}
+                                    selected={Rdate}
                                     onChange={handleChange}
                                     name="date"
                                     locale="uk"
                                 />
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th className='oneColumn' scope="col">час</th>
-                                            <th scope="col">Назва предмета</th>
-                                            <th scope="col">Викладач</th>
-                                            <th scope="col">ауд.</th>
-                                            <th scope="col">Вид зайняття</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {inputFields.map((input, index) => {
-                                            return (
-                                                <tr key={index}>
-                                                    <td>
-                                                        <input
-                                                            className='NotVisInput'
-                                                            name='time'
-                                                            value={input.time}
-                                                            onChange={event => handleFormChange(index, event)}
-                                                        />
-                                                    </td>
-                                                    <td>
-
-                                                        <input
-                                                            className='NotVisInput'
-                                                            name='nameLesson'
-                                                            value={input.nameLesson}
-                                                            onChange={event => handleFormChange(index, event)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <input
-                                                            className='NotVisInput'
-                                                            name='nameTeacher'
-                                                            value={input.nameTeacher}
-                                                            onChange={event => handleFormChange(index, event)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <input
-                                                            className='NotVisInput'
-                                                            name='classRoom'
-                                                            value={input.classRoom}
-                                                            onChange={event => handleFormChange(index, event)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <MySelectInput
-                                                            name="typeLesson"
-                                                            value={input.typeLesson}
-                                                            data={options}
-                                                            handleMenuClick={event => handleMenuClickLesson(index, event)}
-                                                        //onChange={event => handleFormChange(index, event)}
-                                                        />
-                                                    </td>
-                                                    <td> <div className='btn btn-dark' onClick={() => removeFields(index)}>Видалити</div></td>
-
-                                                </tr>
-
-                                            )
-                                        })}
-                                    </tbody>
-
-                                </table>
-                                <div className='btn btn-dark' onClick={addFields}>Додати зайняття</div>
+                                
                             </div>
                             <div className='divTo_but'>
-                                <button type="submit" className="btn btn-dark col-md-4 but showBtn">Зберегти</button>
+                                <button type="submit" className="btn btn-dark col-md-4 but showBtn">Додати</button>
                             </div>
                         </Form>
                     </Formik>
                 </div>
             </div>
+
+            <AddLessonsToShedule visible={addLessonsToSheduleVision} onClose={onClose} />
         </>
     )
 }

@@ -17,7 +17,7 @@ const UsersPage = () => {
     const columns = [
         { title: 'Логін', dataIndex: 'login', key: 'login', render: text => <a>{text}</a>, sorter: true },
         { title: 'Email', dataIndex: 'email', key: 'email' },
-        { title: 'Видалення', dataIndex: '', key: 'delete', render: id => <button type="button" onClick={() => onDeleteClick(id.id)} className="btn btn-danger">Видалити</button>, },
+        { title: 'Видалення', dataIndex: '', key: 'delete', render: id => <button type="button" onClick={() => onDeleteClick(id.id)} className="btn btn-danger"><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZLBdg0qskT0_6Vzp63-pJ_WYDJY_7EQywdw&usqp=CAU' width={15}></img></button>, },
         { title: 'Редагування', dataIndex: '', key: 'edit', render: id => <Link className="btn btn-warning" to={`/users/edit/${id.id}`}>Редагувати</Link>, },
     ]
 
@@ -83,11 +83,11 @@ const UsersPage = () => {
                         onSearch={(text) => GetData(text)}
                     />
                     <Table
-                        pagination={true}
+                        pagination={false}
                         columns={columns}
                         dataSource={listUser}
                     />
-                    <Link className="btn btn-success offset-md-10 col-md-2" to={`/users/add`}>Додати користувача</Link>
+                    <Link className="btn btn-success offset-md-10 row-col-md-2" to={`/users/add`}>Додати користувача</Link>
 
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { SHEDULE_ALL, SHEDULE_ADD, SHEDULE_DELETED, SHEDULE_EDIT, SHEDULE_SAVE_EDIT, GROUP_ADD } from "../../../constants/ActionConst";
+import { SHEDULE_ALL, SHEDULE_ADD, SHEDULE_LESSONS_ADD, SHEDULE_DELETED, SHEDULE_EDIT, SHEDULE_SAVE_EDIT, GROUP_ADD } from "../../../constants/ActionConst";
 
 const initialState = {
     listGroup: [],
@@ -16,6 +16,11 @@ const sheduleReducer = (state=initialState, action) => {
             };
         }
         case SHEDULE_ADD: {
+            return {
+                ...state,
+            };
+        }
+        case SHEDULE_LESSONS_ADD: {
             return {
                 ...state,
             };

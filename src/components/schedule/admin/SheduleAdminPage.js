@@ -6,6 +6,7 @@ import AddGroup from '../addGroup/AddGroupPage';
 import AddShedule from '../addShedue/AddShedulePage';
 import DeleteGroupPage from '../deleteGroup/DeleteGroupPage';
 import EditGroup from '../editGroup/EditGroupPage';
+import AddLessonsToShedule from '../addShedue/AddLessonsToShedule';
 
 const SheduleAdminPage = () => {
 
@@ -16,6 +17,7 @@ const SheduleAdminPage = () => {
     const [addNewGropVision, setAddNewGropVision] = useState(false);
     const [deleteGroupVision, setDeleteGroupVision] = useState(false);
     const [editGroupVision, setEditGroupVision] = useState(false);
+    const [addLessonsToSheduleVision, setAddLessonsToSheduleVision] = useState(false);
 
 
     const onSubmitHandler = (values) => {
@@ -57,6 +59,11 @@ const SheduleAdminPage = () => {
         setEditGroupVision(true);
     }
 
+    const onAddLessonsToShedule = () => {
+        onCloseAllWindow();
+        setAddLessonsToSheduleVision(true);
+    }
+
     const onCloseAllWindow = () =>{
         setAddSheduleVision(false);
         setEditSheduleVision(false);
@@ -65,6 +72,7 @@ const SheduleAdminPage = () => {
         setAddNewGropVision(false);
         setDeleteGroupVision(false);
         setEditGroupVision(false);
+        setAddLessonsToSheduleVision(false);
     }
     const onClose = () => onCloseAllWindow();
 
@@ -110,7 +118,7 @@ const SheduleAdminPage = () => {
                 
                 <EditGroup visible={editGroupVision} onClose={onClose}/>
 
-
+                <AddLessonsToShedule visible={addLessonsToSheduleVision} onClose={onClose} />
 
 
             </div>

@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const Datepicker = () => {
 
     registerLocale("uk", uk);
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState();
    
 
     return (
